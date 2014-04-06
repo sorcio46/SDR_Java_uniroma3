@@ -70,7 +70,7 @@ public class Complex {
 				complex =complex+" e di modulo "+this.modulo;
 				}
 			else
-				complex="0.0 niet";
+				complex="zero";
 		}
 		return complex;
 	}
