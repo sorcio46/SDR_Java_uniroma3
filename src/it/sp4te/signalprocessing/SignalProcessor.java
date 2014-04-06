@@ -88,7 +88,7 @@ public class SignalProcessor {
 		if(n==0)
 			res = 1;
 		else{
-			if(n%(1/band)==0)
+			if(n%(1/2*band)==0)
 				res=0;
 			else
 				res = (Math.sin(Math.PI*band*n))/(Math.PI*band*n);
@@ -143,7 +143,7 @@ public class SignalProcessor {
 	//Metodo BPF Intelligente
 	public static Signal bandPassFilter(double bandl, double bandh) {
 		double band=bandh-bandl;
-		double fc=bandh-(band/2);
+		//double fc=bandh-(band/2);
 		double temp=1/band +1;
 		int numCampioni=(int) temp;
 		Complex[] values = new Complex[numCampioni];
@@ -153,22 +153,24 @@ public class SignalProcessor {
 		//non e' altro che la differenza di due filtr sinc
 		for(int n = - simmetria; n <= simmetria; n++){
 			//Formula principale
-			double realval1 = 2* bandh * sinc(n, 2 * bandh) -2* bandl * sinc(n, 2 * bandl);
+			double realval1 = 2* bandh * sinc(n, bandh) -2* bandl * sinc(n, bandl);
 			//Formula secondaria
-			double realval2 = 2* band * sinc(n, 2 * band) * Math.cos(fc * n);
+			//double realval2 = 2* band * sinc(n, 2 * band) * Math.cos(fc * n);
 			values[n + simmetria] = new Complex(realval1, 0);
 		}
-		
 		Signal lpf = new Signal(values);
-		
 		return lpf;
 	}
 	
 	//Metodo Sfaticato
 	public static Signal LazyBandPassFilter(double offset, double band){
 		Signal l=lowPassFilter(band);
-		for(int n=0; n<l.getValues().length; n++){
-			l.getValues()[n].setReale(l.getValues()[n].getReale()*Math.cos(offset * n));
+		double temp=1/band +1, reale;
+		int numCampioni=(int) temp;
+		int simmetria = (numCampioni) / 2;
+		for(int n = - simmetria; n <= simmetria; n++){
+			reale=l.getValues()[n + simmetria].getReale()*Math.cos(Math.PI * offset * n);
+			l.getValues()[n + simmetria].setReale(reale);
 		}
 		return l;
 	}
