@@ -156,8 +156,6 @@ public class SignalProcessor {
 			double realval1 = 2* bandh * sinc(n, 2 * bandh) -2* bandl * sinc(n, 2 * bandl);
 			//Formula secondaria
 			double realval2 = 2* band * sinc(n, 2 * band) * Math.cos(fc * n);
-			if(realval1==realval2)
-				System.out.print("OK - ");
 			values[n + simmetria] = new Complex(realval1, 0);
 		}
 		
