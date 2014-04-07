@@ -119,13 +119,13 @@ public class SignalProcessor {
 		return lpf;
 	}
 	
-	//Metodo LPF Intelligente
+	//Metodo LPF Intelligente che data la banda ne calcola il numero dei campioni
 	public static Signal lowPassFilter(double band) {
-		//4 campioni a sinistra + 4 campioni a destra
-		//+1 campione centrale = 9 lobi della sinc
-		//double temp=(1/band)+1;
-		//int numCampioni=(int) temp;
-		int numCampioni=7;
+		
+		double temp=(2 * band * 10);
+		int numCampioni=(int)temp;
+		if(numCampioni%2==0)
+			numCampioni++;
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
@@ -139,33 +139,54 @@ public class SignalProcessor {
 		return lpf;
 	}
 	
-	//Metodo BPF Intelligente
-	public static Signal bandPassFilter(double bandl, double bandh) {
+	/*
+	//Metodo BPF-Tipo1 Intelligente
+	public static Signal bandPassFilter1(double bandl, double bandh) {
 		double band=bandh-bandl;
 		//double fc=bandh-(band/2);
-		double temp=1/band +1;
-		int numCampioni=(int) temp;
+		double temp=(2*band*10);
+		int numCampioni=(int)temp;
+		if(numCampioni%2==0)
+			numCampioni++;
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
 		//Un filtro passa banda con lower band Bl e upper band Bh
 		//non e' altro che la differenza di due filtr sinc
 		for(int n = - simmetria; n <= simmetria; n++){
-			//Formula principale
-			double realval1 = 2* bandh * sinc(n, bandh) -2* bandl * sinc(n, bandl);
-			//Formula secondaria
-			//double realval2 = 2* band * sinc(n, 2 * band) * Math.cos(fc * n);
-			values[n + simmetria] = new Complex(realval1, 0);
+			double realval = 2* bandh * sinc(n, bandh) -2* bandl * sinc(n, bandl);
+			values[n + simmetria] = new Complex(realval, 0);
 		}
+		Signal lpf = new Signal(values);
+		return lpf;
+	}
+	*/
+	
+	//Metodo BPF-Tipo2 Intelligente
+	public static Signal bandPassFilter2(double band, double fc) {
+		double temp=(2 * band * 10);
+		int numCampioni=(int)temp;
+		if(numCampioni%2==0)
+			numCampioni++;
+		Complex[] values = new Complex[numCampioni];
+		int simmetria = (numCampioni) / 2;
+		
+		//Un filtro passa banda di banda band centrato su frequenza fc
+		//non e' altro che la moltiplicazione di una sinc per un coseno
+		for(int n = - simmetria; n <= simmetria; n++){
+			double realval = 2* band * sinc(n, 2 * band) * Math.cos(fc * Math.PI * n);
+			values[n + simmetria] = new Complex(realval, 0);
+		}
+
 		Signal lpf = new Signal(values);
 		return lpf;
 	}
 	
 	//Metodo Sfaticato
-	public static Signal LazyBandPassFilter(double offset, double band){
+	public static Signal LazyBandPassFilter(double band, double offset){
 		double reale;
 		Signal l=lowPassFilter(band);
-		int numCampioni=7;
+		int numCampioni=l.getLength();
 		int simmetria = (numCampioni) / 2;
 		for(int n = - simmetria; n <= simmetria; n++){
 			reale=l.getValues()[n + simmetria].getReale()*Math.cos(Math.PI * offset * n);

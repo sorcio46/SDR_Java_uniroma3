@@ -5,7 +5,7 @@ import it.sp4te.signalprocessing.SignalProcessor;
 
 public class Diagnostica2 {
 	public static void main (String[] args){
-		Complex[] vet1 = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
+		//Complex[] vet1 = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
 		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(1,0)};
 		
 		/*
@@ -28,18 +28,20 @@ public class Diagnostica2 {
 			System.out.println(vet3[i].toString());
 		*/
 		
+		/*
 		//esempio di filtraggio (convoluzione tra un segnale e il filtro passa-basso)
 	    Signal s = new Signal(vet1);
-	    Signal lpf= SignalProcessor.lowPassFilter(0.25, 7);
-		Signal lpe= SignalProcessor.lowPassFilter(0.25);
+	    Signal lpf= SignalProcessor.lowPassFilter(0.25, 5);
+		Signal lpe= SignalProcessor.lowPassFilter(0.30);
 	    Signal f1 = SignalProcessor.convoluzione(s, lpf);
 		Signal f2 = SignalProcessor.convoluzione(s, lpe);
-		System.out.println("-------------");
+		System.out.println("\n-------------");
 		System.out.println("FILTRAGGIO LPF");
 		System.out.println("--------------");
 		
 		System.out.println("Dato il segnale:");
 		System.out.println(s.toString());
+		
 		System.out.println("Dato il Filtro normale:");
 		System.out.println(lpf.toString());
 		System.out.println("Filtrato NORMALE");
@@ -50,6 +52,8 @@ public class Diagnostica2 {
 		System.out.println("Filtrato INTELLIGENTE");
 		System.out.println(f2.toString());
 		
+		*/
+		
 		Signal z = new Signal(vet2);
 		
 		System.out.println("\n--------------");
@@ -58,15 +62,18 @@ public class Diagnostica2 {
 		
 		System.out.println("Dato il segnale:");
 		System.out.println(z.toString());
-		Signal bpf= SignalProcessor.bandPassFilter(0.55,0.65);
-		Signal lz = SignalProcessor.LazyBandPassFilter(0.60,0.10);
+		
+		Signal bpf= SignalProcessor.bandPassFilter2(0.35,0.65);
+		Signal lz = SignalProcessor.LazyBandPassFilter(0.25,0.65);
 		System.out.println("");
 		Signal f3 = SignalProcessor.convoluzione(z, bpf);
 		Signal f4 = SignalProcessor.convoluzione(z, lz);
+		
 		System.out.println("Filtro NORMALE");
 		System.out.println(bpf.toString());
 		System.out.println("Filtrato NORMALE");
 		System.out.println(f3.toString());
+		
 		System.out.println("Filtro LAZY");
 		System.out.println(lz.toString());
 		System.out.println("Filtrato LAZY");
