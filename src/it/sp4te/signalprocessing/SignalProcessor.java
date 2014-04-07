@@ -140,7 +140,7 @@ public class SignalProcessor {
 	}
 	
 	/*
-	//Metodo BPF-Tipo1 Intelligente
+	//Metodo BPF-Tipo1 Intelligente che non sembra funzionare
 	public static Signal bandPassFilter1(double bandl, double bandh) {
 		double band=bandh-bandl;
 		//double fc=bandh-(band/2);
@@ -174,7 +174,7 @@ public class SignalProcessor {
 		//Un filtro passa banda di banda band centrato su frequenza fc
 		//non e' altro che la moltiplicazione di una sinc per un coseno
 		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* band * sinc(n, 2 * band) * Math.cos(fc * Math.PI * n);
+			double realval = 2* band * sinc(n, 2 * band) * Math.cos(2 * fc * Math.PI * n);
 			values[n + simmetria] = new Complex(realval, 0);
 		}
 
@@ -182,15 +182,14 @@ public class SignalProcessor {
 		return lpf;
 	}
 	
-	//Metodo Sfaticato
+	//Metodo scritto da uno Sfaticato
 	public static Signal LazyBandPassFilter(double band, double offset){
 		double reale;
 		Signal l=lowPassFilter(band);
-		int numCampioni=l.getLength();
-		int simmetria = (numCampioni) / 2;
-		for(int n = - simmetria; n <= simmetria; n++){
-			reale=l.getValues()[n + simmetria].getReale()*Math.cos(Math.PI * offset * n);
-			l.getValues()[n + simmetria].setReale(reale);
+		int simmetria=l.getLength()/2;
+		for(int n = 0; n < l.getLength(); n++){
+			reale=l.getValues()[n].getReale()*Math.cos(2* Math.PI * offset * n-simmetria);
+			l.getValues()[n].setReale(reale);
 		}
 		return l;
 	}
