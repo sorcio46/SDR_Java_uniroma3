@@ -88,10 +88,8 @@ public class SignalProcessor {
 		if(n==0)
 			res = 1;
 		else{
-			if(n%(1/2*band)==0)
-				res=0;
-			else
-				res = (Math.sin(Math.PI*band*n))/(Math.PI*band*n);
+			if(n%(1/band)!=0)
+				res = (Math.sin(Math.PI*band*n))/(Math.PI*band*n);				
 		}
 		return res;
 	}
@@ -124,9 +122,10 @@ public class SignalProcessor {
 	//Metodo LPF Intelligente
 	public static Signal lowPassFilter(double band) {
 		//4 campioni a sinistra + 4 campioni a destra
-		//+1 campione centrale = 9 lobi
-		double temp=1/band +1;
-		int numCampioni=(int) temp;
+		//+1 campione centrale = 9 lobi della sinc
+		//double temp=(1/band)+1;
+		//int numCampioni=(int) temp;
+		int numCampioni=7;
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
@@ -164,9 +163,9 @@ public class SignalProcessor {
 	
 	//Metodo Sfaticato
 	public static Signal LazyBandPassFilter(double offset, double band){
+		double reale;
 		Signal l=lowPassFilter(band);
-		double temp=1/band +1, reale;
-		int numCampioni=(int) temp;
+		int numCampioni=7;
 		int simmetria = (numCampioni) / 2;
 		for(int n = - simmetria; n <= simmetria; n++){
 			reale=l.getValues()[n + simmetria].getReale()*Math.cos(Math.PI * offset * n);

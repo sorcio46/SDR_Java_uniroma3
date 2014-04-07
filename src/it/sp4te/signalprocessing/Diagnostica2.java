@@ -5,7 +5,7 @@ import it.sp4te.signalprocessing.SignalProcessor;
 
 public class Diagnostica2 {
 	public static void main (String[] args){
-		//Complex[] vet1 = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
+		Complex[] vet1 = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
 		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(1,0)};
 		
 		/*
@@ -26,10 +26,11 @@ public class Diagnostica2 {
 		Complex[] vet3 = SignalProcessor.convoluzione(vet1, vet2);
 		for(int i= 0; i< vet3.length;i++)
 			System.out.println(vet3[i].toString());
+		*/
 		
 		//esempio di filtraggio (convoluzione tra un segnale e il filtro passa-basso)
 	    Signal s = new Signal(vet1);
-	    Signal lpf= SignalProcessor.lowPassFilter(0.25, 5);
+	    Signal lpf= SignalProcessor.lowPassFilter(0.25, 7);
 		Signal lpe= SignalProcessor.lowPassFilter(0.25);
 	    Signal f1 = SignalProcessor.convoluzione(s, lpf);
 		Signal f2 = SignalProcessor.convoluzione(s, lpe);
@@ -48,7 +49,6 @@ public class Diagnostica2 {
 		System.out.println(lpe.toString());;
 		System.out.println("Filtrato INTELLIGENTE");
 		System.out.println(f2.toString());
-		*/
 		
 		Signal z = new Signal(vet2);
 		
@@ -71,5 +71,6 @@ public class Diagnostica2 {
 		System.out.println(lz.toString());
 		System.out.println("Filtrato LAZY");
 		System.out.println(f4.toString());
+		
 	}
 }
