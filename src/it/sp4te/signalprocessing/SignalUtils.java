@@ -22,17 +22,16 @@ public class SignalUtils {
 	}
 	
 	//Metodo per il calcolo del massimo comun divisore
-	//basato sull algoritmo di Euclide
 	public static int mcd(int n1, int n2){
-		int h=0;
-		if(n1==n2)
-			return n2;
-		if(n2>n1){
-			h=n1;
-			n1=n2;
-			n2=h;
+		int mcd=-1, i;
+		for(i=1;i<=n2;i++){
+			if(n1%i==0){
+				if(n2%i==0){
+					mcd=i;
+				}
+			}
 		}
-		return mcd(n1-n2,n2);
+		return mcd;
 	}
 	
 	//Metodo da fare per l'Homework 2

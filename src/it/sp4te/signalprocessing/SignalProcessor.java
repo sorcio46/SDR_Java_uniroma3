@@ -194,20 +194,20 @@ public class SignalProcessor {
 	//Metodo da Implementare per l'Homework 2
 	//Metoto per esegure l'espansione (gli serve F1)
 	public static Signal espansione(int F1, Signal signalIN){
-		Complex[] valuesOUT=new Complex[signalIN.values.length * F1];
+		Complex[] sequenzaIN=signalIN.values;
+		Complex[] espansa=new Complex[sequenzaIN.length * F1];
 		int j=0, i;
-		for(i=0 ; i<valuesOUT.length ; i++){
+		for(i=0 ; i<espansa.length ; i++){
 			if(i%F1==0){
-				valuesOUT[i]=signalIN.values[j];
+				espansa[i]=sequenzaIN[j];
 				j++;
 			}
 			else{
-				valuesOUT[i].setReale(0);
-				valuesOUT[i].setImmaginaria(0);
+				espansa[i]=new Complex(0,0);
 			}
 		}
-		Signal espansa=new Signal(valuesOUT);
-		return espansa;
+		Signal esp=new Signal(espansa);
+		return esp;
 	}
 	
 	//Metodo da Implementare per l'Homework 2
@@ -231,6 +231,21 @@ public class SignalProcessor {
 	}
 	
 	//Metodo da Implementare per l'Homework 2
+	//Metoto per eseguire l'interpolazione
+	public static Signal interpolazione(int F1, Signal signalIN){
+		//Calcolo banda
+		double B=signalIN.values.length;
+		B--;
+		B=B/20;
+		System.out.println("Banda calcolata: "+B);
+		//Genero il filtro e faccio la convoluzione
+		Signal interpolatore= filtroInterpolatore(B,F1);
+		Signal interpolato=convoluzione(signalIN, interpolatore);
+		
+		return interpolato;
+	}
+	
+	//Metodo da Implementare per l'Homework 2
 	//Metoto per esegure la decimazione (gli serve F1)
 	public static Signal decimazione(int F2, Signal signalIN){
 		Complex[] interpolato=signalIN.values;
@@ -251,27 +266,22 @@ public class SignalProcessor {
 	public static Signal cambioTassoCampionamento(int T1, int T2, Signal signalIN){
 		int F1=SignalUtils.calcoloParametriCambio(T1, T2)[0];
 		int F2=SignalUtils.calcoloParametriCambio(T1, T2)[1];
-		Signal signalOUT=new Signal(signalIN.values);
-		
+		Complex[] valori= signalIN.values;
+		Signal signalOUT=new Signal(valori);
+		System.out.println("F1= "+F1+" F2="+F2);
 		if(F1!=1){
 			//Espansione
 			System.out.println("Espansione: calcolo in corso");
-			signalOUT=espansione(F1, signalOUT);
-		
-			//Calcolo banda
-			double B=signalOUT.values.length;
-			B--;
-			B=B/20;
-		
+			signalOUT=espansione(F1, signalOUT);;
+			
 			//Interpolazione
 			System.out.println("Interpolazionw: calcolo in corso");
-			Signal interpolatore= filtroInterpolatore(B,F1);
-			signalOUT=convoluzione(signalOUT, interpolatore);
+			signalOUT= interpolazione(F1, signalOUT);
 		}
 		if(F2!=1){
 			//Decimazione
 			System.out.println("Decimazione: calcolo in corso");
-			signalOUT=decimazione(F1, signalOUT);
+			signalOUT=decimazione(F2, signalOUT);
 		}
 		return signalOUT;
 		
