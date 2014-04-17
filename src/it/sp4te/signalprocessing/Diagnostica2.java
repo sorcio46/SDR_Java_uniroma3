@@ -65,10 +65,13 @@ public class Diagnostica2 {
 		Signal f3 = SignalProcessor.convoluzione(z, bpf);
 		Signal f4 = SignalProcessor.convoluzione(z, lz);
 		
+		//Serve un controllo di questi valori
+		/*
 		System.out.println("Filtro NORMALE");
 		System.out.println(bpf.toString());
 		System.out.println("Filtrato NORMALE");
 		System.out.println(f3.toString());
+		*/
 		
 		System.out.println("Filtro LAZY");
 		System.out.println(lz.toString());

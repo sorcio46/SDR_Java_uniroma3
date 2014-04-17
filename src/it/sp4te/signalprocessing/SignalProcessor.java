@@ -10,7 +10,6 @@ package it.sp4te.signalprocessing;
 
 import it.sp4te.domain.*;
 
-
 public class SignalProcessor {
 
 	/**
@@ -76,25 +75,6 @@ public class SignalProcessor {
 	}
 	
 	/**
-	 * Calcola il valore della sinc nel punto x.
-	 * Se x=0 allora torna 1
-	 * Nota: sinc(x) = (sin(pi*x))/(pi*x)
-	 * @param x
-	 * @return il valore della sinc per il punto x
-	 */
-	//Metodo ottimizzato
-	public static double sinc(double n, double band){
-		double res = 0;
-		if(n==0)
-			res = 1;
-		else{
-			if(n%(1/band)!=0)
-				res = (Math.sin(Math.PI*band*n))/(Math.PI*band*n);				
-		}
-		return res;
-	}
-	
-	/**
 	 * Crea un nuovo segnale rappresentante il filtro passa-basso
 	 * NOTA BENE: il numero di campioni che deve essere passato deve essere dispari
 	 * Ottimizzare il metodo come richiesto nell'homework
@@ -110,7 +90,7 @@ public class SignalProcessor {
 		int simmetria = (numCampioni) / 2;
 		
 		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* band * sinc(n, 2 * band);
+			double realval = 2* band * SignalUtils.sinc(n, 2 * band);
 			values[n + simmetria] = new Complex(realval, 0);
 		}
 		
@@ -130,7 +110,7 @@ public class SignalProcessor {
 		int simmetria = (numCampioni) / 2;
 		
 		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* band * sinc(n, 2 * band);
+			double realval = 2* band * SignalUtils.sinc(n, 2 * band);
 			values[n + simmetria] = new Complex(realval, 0);
 		}
 		
@@ -140,7 +120,7 @@ public class SignalProcessor {
 	}
 	
 	/*
-	//Metodo BPF-Tipo1 Intelligente che non sembra funzionare
+	//Metodo BPF-Tipo1 Intelligente che non sembra funzionare quindi per il momento è commentato
 	public static Signal bandPassFilter1(double bandl, double bandh) {
 		double band=bandh-bandl;
 		//double fc=bandh-(band/2);
@@ -174,7 +154,7 @@ public class SignalProcessor {
 		//Un filtro passa banda di banda band centrato su frequenza fc
 		//non e' altro che la moltiplicazione di una sinc per un coseno
 		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* band * sinc(n, 2 * band) * Math.cos(2 * fc * Math.PI * n);
+			double realval = 2* band * SignalUtils.sinc(n, 2 * band) * Math.cos(2 * fc * Math.PI * n);
 			values[n + simmetria] = new Complex(realval, 0);
 		}
 
@@ -208,6 +188,92 @@ public class SignalProcessor {
 		Signal signal = new Signal(values);
 		
 		return signal;
+		
+	}
+	
+	//Metodo da Implementare per l'Homework 2
+	//Metoto per esegure l'espansione (gli serve F1)
+	public static Signal espansione(int F1, Signal signalIN){
+		Complex[] valuesOUT=new Complex[signalIN.values.length * F1];
+		int j=0, i;
+		for(i=0 ; i<valuesOUT.length ; i++){
+			if(i%F1==0){
+				valuesOUT[i]=signalIN.values[j];
+				j++;
+			}
+			else{
+				valuesOUT[i].setReale(0);
+				valuesOUT[i].setImmaginaria(0);
+			}
+		}
+		Signal espansa=new Signal(valuesOUT);
+		return espansa;
+	}
+	
+	//Metodo da Implementare per l'Homework 2
+	//Metoto per la generazione per il filtro Interpolatore
+	public static Signal filtroInterpolatore(double band, int F1){
+		double temp=(2 * band * 10);
+		int numCampioni=(int)temp;
+		if(numCampioni%2==0)
+			numCampioni++;
+		Complex[] values = new Complex[numCampioni];
+		int simmetria = (numCampioni) / 2;
+		
+		for(int n = - simmetria; n <= simmetria; n++){
+			double realval = 2* F1 * band * SignalUtils.sinc(n, 2 * band);
+			values[n + simmetria] = new Complex(realval, 0);
+		}
+		
+		Signal lpf = new Signal(values);
+		
+		return lpf;
+	}
+	
+	//Metodo da Implementare per l'Homework 2
+	//Metoto per esegure la decimazione (gli serve F1)
+	public static Signal decimazione(int F2, Signal signalIN){
+		Complex[] interpolato=signalIN.values;
+		int lengthDec= interpolato.length/F2;
+		Complex[] decimato= new Complex[lengthDec];
+		int i, j=0;
+		for(i=0;i<interpolato.length;i++){
+			if(i%F2 == 0 && j<lengthDec){
+				decimato[j]=interpolato[i];
+			}
+		}
+		Signal deci=new Signal(decimato);
+		return deci;
+	}
+	
+	//Metodo da Implementare per l'Homework 2
+	//Metodo per il cambio del tasso di campionamento
+	public static Signal cambioTassoCampionamento(int T1, int T2, Signal signalIN){
+		int F1=SignalUtils.calcoloParametriCambio(T1, T2)[0];
+		int F2=SignalUtils.calcoloParametriCambio(T1, T2)[1];
+		Signal signalOUT=new Signal(signalIN.values);
+		
+		if(F1!=1){
+			//Espansione
+			System.out.println("Espansione: calcolo in corso");
+			signalOUT=espansione(F1, signalOUT);
+		
+			//Calcolo banda
+			double B=signalOUT.values.length;
+			B--;
+			B=B/20;
+		
+			//Interpolazione
+			System.out.println("Interpolazionw: calcolo in corso");
+			Signal interpolatore= filtroInterpolatore(B,F1);
+			signalOUT=convoluzione(signalOUT, interpolatore);
+		}
+		if(F2!=1){
+			//Decimazione
+			System.out.println("Decimazione: calcolo in corso");
+			signalOUT=decimazione(F1, signalOUT);
+		}
+		return signalOUT;
 		
 	}
 }
