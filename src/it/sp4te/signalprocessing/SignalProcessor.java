@@ -234,17 +234,14 @@ public class SignalProcessor {
 	//Metoto per eseguire l'interpolazione
 	public static Signal interpolazione(int F1, Signal signalIN){
 		//Calcolo banda
-		double B=signalIN.values.length;
-		B--;
-		B=B/20;
-		System.out.println("Banda calcolata: "+B);
+		double B=1/(2.0*F1);
 		//Genero il filtro e faccio la convoluzione
 		Signal interpolatore= filtroInterpolatore(B,F1);
 		Signal interpolato=convoluzione(signalIN, interpolatore);
-		
+		//Taglio le code
 		Complex[] val= new Complex [signalIN.values.length];
-		int i, j=0, n = (interpolatore.values.length);
-		
+		int i, j=0, n=(interpolatore.values.length);
+		n=(n-1)/2;
 		for(i=n; i< interpolato.values.length -n; i++){
 			val[j]=interpolato.values[i];
 			j++;
@@ -262,6 +259,7 @@ public class SignalProcessor {
 		for(i=0;i<interpolato.length;i++){
 			if(i%F2 == 0 && j<lengthDec){
 				decimato[j]=interpolato[i];
+				j++;
 			}
 		}
 		Signal deci=new Signal(decimato);

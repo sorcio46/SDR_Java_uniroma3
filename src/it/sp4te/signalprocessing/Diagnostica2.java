@@ -6,7 +6,7 @@ import it.sp4te.signalprocessing.SignalProcessor;
 public class Diagnostica2 {
 	public static void main (String[] args){
 		Complex[] vet1 = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
-		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(1,0)};
+		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(3,0)};
 		
 		
 		// Esempio convoluzione tra reali
@@ -16,6 +16,7 @@ public class Diagnostica2 {
 		//System.out.println("------------------");
 		//System.out.println("CONVOLUZIONE REALI");
 		//System.out.println("------------------");
+		/*
 		for(int i= 0; i< v3.length;i++)
 			System.out.println(v3[i]);
 
@@ -26,6 +27,7 @@ public class Diagnostica2 {
 		Complex[] vet3 = SignalProcessor.convoluzione(vet1, vet2);
 		for(int i= 0; i< vet3.length;i++)
 			System.out.println(vet3[i].toString());
+		*/
 		
 		//esempio di filtraggio (convoluzione tra un segnale e il filtro passa-basso)
 	    Signal s = new Signal(vet1);
@@ -53,12 +55,12 @@ public class Diagnostica2 {
 		
 		Signal z = new Signal(vet2);
 		
-		System.out.println("\n--------------");
-		System.out.println("FILTRAGGIO BPF");
-		System.out.println("--------------");
+		//System.out.println("\n--------------");
+		//System.out.println("FILTRAGGIO BPF");
+		//System.out.println("--------------");
 		
-		System.out.println("Dato il segnale:");
-		System.out.println(z.toString());
+		//System.out.println("Dato il segnale:");
+		//System.out.println(z.toString());
 		
 		Signal bpf= SignalProcessor.bandPassFilter2(0.55,0.65);
 		Signal lz = SignalProcessor.LazyBandPassFilter(0.55,0.65);
