@@ -75,12 +75,12 @@ public class Diagnostica2 {
 		System.out.println(f3.toString());
 		*/
 		
-		System.out.println("Filtro LAZY");
-		System.out.println(lz.toString());
-		System.out.println("Filtrato LAZY");
-		System.out.println(f4.toString());
+		//System.out.println("Filtro LAZY");
+		//System.out.println(lz.toString());
+		//System.out.println("Filtrato LAZY");
+		//System.out.println(f4.toString());
 		
-		Signal cambio=SignalProcessor.cambioTassoCampionamento(24, 18, f4);
+		Signal cambio=SignalProcessor.cambioTassoCampionamento(24, 18, z);
 		System.out.println("Con tasso di campionamento portato da 25 a 18");
 		System.out.println(cambio.toString());
 		

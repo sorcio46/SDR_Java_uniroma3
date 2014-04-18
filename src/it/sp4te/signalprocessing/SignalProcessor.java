@@ -242,7 +242,14 @@ public class SignalProcessor {
 		Signal interpolatore= filtroInterpolatore(B,F1);
 		Signal interpolato=convoluzione(signalIN, interpolatore);
 		
-		return interpolato;
+		Complex[] val= new Complex [signalIN.values.length];
+		int i, j=0, n = (interpolatore.values.length);
+		
+		for(i=n; i< interpolato.values.length -n; i++){
+			val[j]=interpolato.values[i];
+			j++;
+		}
+		return interpolato= new Signal(val);
 	}
 	
 	//Metodo da Implementare per l'Homework 2
@@ -268,20 +275,24 @@ public class SignalProcessor {
 		int F2=SignalUtils.calcoloParametriCambio(T1, T2)[1];
 		Complex[] valori= signalIN.values;
 		Signal signalOUT=new Signal(valori);
+		System.out.println(signalOUT.toString()+"\n");
 		System.out.println("F1= "+F1+" F2="+F2);
 		if(F1!=1){
 			//Espansione
 			System.out.println("Espansione: calcolo in corso");
 			signalOUT=espansione(F1, signalOUT);;
+			System.out.println(signalOUT.toString()+"\n");
 			
 			//Interpolazione
-			System.out.println("Interpolazionw: calcolo in corso");
+			System.out.println("Interpolazione: calcolo in corso");
 			signalOUT= interpolazione(F1, signalOUT);
+			System.out.println(signalOUT.toString()+"\n");
 		}
 		if(F2!=1){
 			//Decimazione
 			System.out.println("Decimazione: calcolo in corso");
 			signalOUT=decimazione(F2, signalOUT);
+			System.out.println(signalOUT.toString()+"\n");
 		}
 		return signalOUT;
 		
