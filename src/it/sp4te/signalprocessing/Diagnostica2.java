@@ -3,6 +3,7 @@ package it.sp4te.signalprocessing;
 import it.sp4te.domain.*;
 import it.sp4te.signalprocessing.SignalProcessor;
 
+
 public class Diagnostica2 {
 	public static void main (String[] args){
 		Complex[] vet1 = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
@@ -19,12 +20,14 @@ public class Diagnostica2 {
 		/*
 		for(int i= 0; i< v3.length;i++)
 			System.out.println(v3[i]);
-
+		*/
+	
 		// esempio convoluzione tra Complessi		
 		//System.out.println("\n----------------------");
 		//System.out.println("CONVOLUZIONE COMPLESSI");
 		//System.out.println("----------------------");
 		Complex[] vet3 = SignalProcessor.convoluzione(vet1, vet2);
+		/*
 		for(int i= 0; i< vet3.length;i++)
 			System.out.println(vet3[i].toString());
 		*/
@@ -52,7 +55,6 @@ public class Diagnostica2 {
 		//System.out.println("Filtrato INTELLIGENTE");
 		//System.out.println(f2.toString());
 		
-		
 		Signal z = new Signal(vet2);
 		
 		//System.out.println("\n--------------");
@@ -77,13 +79,13 @@ public class Diagnostica2 {
 		System.out.println(f3.toString());
 		*/
 		
-		//System.out.println("Filtro LAZY");
-		//System.out.println(lz.toString());
-		//System.out.println("Filtrato LAZY");
-		//System.out.println(f4.toString());
+		System.out.println("Filtro LAZY");
+		System.out.println(lz.toString());
+		System.out.println("Filtrato LAZY");
+		System.out.println(f4.toString());
 		
 		Signal cambio=SignalProcessor.cambioTassoCampionamento(24, 18, z);
-		System.out.println("Con tasso di campionamento portato da 25 a 18");
+		System.out.println("Con tasso di campionamento portato da 24 a 18");
 		System.out.println(cambio.toString());
 		
 	}

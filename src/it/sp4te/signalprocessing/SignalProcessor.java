@@ -238,6 +238,7 @@ public class SignalProcessor {
 		//Genero il filtro e faccio la convoluzione
 		Signal interpolatore= filtroInterpolatore(B,F1);
 		Signal interpolato=convoluzione(signalIN, interpolatore);
+		System.out.println(interpolatore.toString());
 		//Taglio le code
 		Complex[] val= new Complex [signalIN.values.length];
 		int i, j=0, n=(interpolatore.values.length);
