@@ -213,7 +213,7 @@ public class SignalProcessor {
 	//Metodo da Implementare per l'Homework 2
 	//Metoto per la generazione per il filtro Interpolatore
 	public static Signal filtroInterpolatore(double band, int F1){
-		double temp=(2 * band * 10);
+		double temp=(2 * F1 * band * 10);
 		int numCampioni=(int)temp;
 		if(numCampioni%2==0)
 			numCampioni++;
