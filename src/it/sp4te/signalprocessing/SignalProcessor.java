@@ -274,7 +274,7 @@ public class SignalProcessor {
 		int F2=SignalUtils.calcoloParametriCambio(T1, T2)[1];
 		Complex[] valori= signalIN.values;
 		Signal signalOUT=new Signal(valori);
-		System.out.println(signalOUT.toString()+"\n");
+		System.out.println("Dato il segnale"+"\n"+signalOUT.toString()+"\n");
 		System.out.println("F1= "+F1+" F2="+F2);
 		if(F1!=1){
 			//Espansione
