@@ -19,13 +19,8 @@ public class SignalProcessor {
 	 * di attenzione agli indici con cui andiamo a lavorare per definire l�indice j per il ciclo for 
 	 * della traslazione temporale in maniera dinamica in modo da saltare i casi in cui l�indice 
 	 * j sia maggiore delle dimensione delle sequenze
-	 *
-	 * @param v1
-	 * @param v2
-	 * @return
 	 */
-	public static double[] convoluzione(double[] v1, double[] v2){
-		
+	public static double[] convoluzione(double[] v1, double[] v2){	
 		//definizione della lunghezza del vettore finale contenente i risultati della convoluzione
 		int finalLength = v1.length + v2.length-1;
 		double[] result = new double[finalLength];
@@ -42,15 +37,10 @@ public class SignalProcessor {
 				result[k] += (v1[k-j]*v2[j]);
 		}
 		return result;
-		
 	}
 	
 	/**
 	 * Convoluzione tra due vettori di numeri complessi
-	 *  
-	 * @param v1
-	 * @param v2
-	 * @return
 	 */
 	public static Complex[] convoluzione(Complex[] v1, Complex[] v2){
 		
@@ -78,10 +68,6 @@ public class SignalProcessor {
 	 * Crea un nuovo segnale rappresentante il filtro passa-basso
 	 * NOTA BENE: il numero di campioni che deve essere passato deve essere dispari
 	 * Ottimizzare il metodo come richiesto nell'homework
-	 * 
-	 * @param band
-	 * @param numCampioni
-	 * @return Segnale discreto
 	 */
 	//Metodo LPF
 	public static Signal lowPassFilter(double band, int numCampioni) {
@@ -135,9 +121,6 @@ public class SignalProcessor {
 	 * implementa un'operazione di convoluzione discreta fra due segnali passati come parametro.
 	 * Presuppone che il segnale d'ingresso abbia parte reale e immaginaria non nulle 
 	 * e che il filtro abbia solo parte reale.
-	 * @param segnaleIn
-	 * @param rispImpulsivaFiltro
-	 * @return
 	 */
 	public static Signal convoluzione(Signal segnaleIn, Signal rispImpulsivaFiltro){
 		
@@ -205,7 +188,6 @@ public class SignalProcessor {
 			j++;
 		}
 		return interpolato= new Signal(val);
-		
 	}
 	
 	//Metodo da Implementare per l'Homework 2

@@ -72,15 +72,17 @@ public class Diagnostica2 {
 	}
 	public static void homework2(){
 		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(3,0)};
-		//Complex[] vet1 = {new Complex(1,0), new Complex(2,0), new Complex(3,0)};
+		Complex[] vet1 = {new Complex(1,0), new Complex(2,0), new Complex(3,0)};
 		Signal z = new Signal(vet2);
-		//Signal f = new Signal(vet1);
+		Signal f = new Signal(vet1);
 		
 		Signal cambio=SignalProcessor.cambioTassoCampionamento(18, 24, z);
-		//Signal cambio2=SignalProcessor.cambioTassoCampionamento(3, 5, f);
+		System.out.print("\n");
+		Signal cambio2=SignalProcessor.cambioTassoCampionamento(3, 5, f);
 		System.out.println("Con tasso di campionamento portato da Tc=24 a Tc=18");
 		System.out.println(cambio.toString());
-		//System.out.println(cambio2.toString());
+		System.out.println("Con tasso di campionamento portato da Tc=3 a Tc=5");
+		System.out.println(cambio2.toString());
 	}
 	public static void main (String[] args){
 		//Esecuzione Diagnostica per Homework 1
