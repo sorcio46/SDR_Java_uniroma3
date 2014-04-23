@@ -14,10 +14,8 @@ public class SignalUtils {
 		double res = 0;
 		if(n==0)
 			res = 1;
-		else{
-			if(n%(1/band)!=0)
-				res = (Math.sin(Math.PI*band*n))/(Math.PI*band*n);				
-		}
+		if(n%(1/(band))!=0)
+			res = (Math.sin(Math.PI*band*n))/(Math.PI*band*n);				
 		return res;
 	}
 	

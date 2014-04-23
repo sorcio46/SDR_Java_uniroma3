@@ -119,50 +119,7 @@ public class SignalProcessor {
 		return lpf;
 	}
 	
-	/*
-	//Metodo BPF-Tipo1 Intelligente che non sembra funzionare quindi per il momento è commentato
-	public static Signal bandPassFilter1(double bandl, double bandh) {
-		double band=bandh-bandl;
-		//double fc=bandh-(band/2);
-		double temp=(2*band*10);
-		int numCampioni=(int)temp;
-		if(numCampioni%2==0)
-			numCampioni++;
-		Complex[] values = new Complex[numCampioni];
-		int simmetria = (numCampioni) / 2;
-		
-		//Un filtro passa banda con lower band Bl e upper band Bh
-		//non e' altro che la differenza di due filtr sinc
-		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* bandh * sinc(n, bandh) -2* bandl * sinc(n, bandl);
-			values[n + simmetria] = new Complex(realval, 0);
-		}
-		Signal lpf = new Signal(values);
-		return lpf;
-	}
-	*/
-	
-	//Metodo BPF-Tipo2 Intelligente
-	public static Signal bandPassFilter2(double band, double fc) {
-		double temp=(2 * band * 10);
-		int numCampioni=(int)temp;
-		if(numCampioni%2==0)
-			numCampioni++;
-		Complex[] values = new Complex[numCampioni];
-		int simmetria = (numCampioni) / 2;
-		
-		//Un filtro passa banda di banda band centrato su frequenza fc
-		//non e' altro che la moltiplicazione di una sinc per un coseno
-		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* band * SignalUtils.sinc(n, 2 * band) * Math.cos(2 * fc * Math.PI * n);
-			values[n + simmetria] = new Complex(realval, 0);
-		}
-
-		Signal lpf = new Signal(values);
-		return lpf;
-	}
-	
-	//Metodo scritto da uno Sfaticato
+	//Metodo BPF scritto da uno Sfaticato
 	public static Signal LazyBandPassFilter(double band, double offset){
 		double reale;
 		Signal l=lowPassFilter(band);
