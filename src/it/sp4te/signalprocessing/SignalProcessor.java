@@ -205,6 +205,7 @@ public class SignalProcessor {
 			j++;
 		}
 		return interpolato= new Signal(val);
+		
 	}
 	
 	//Metodo da Implementare per l'Homework 2
@@ -232,7 +233,7 @@ public class SignalProcessor {
 		Complex[] valori= signalIN.values;
 		Signal signalOUT=new Signal(valori);
 		System.out.println("Dato il segnale"+"\n"+signalOUT.toString()+"\n");
-		System.out.println("F1= "+F1+" F2="+F2);
+		System.out.println("F1="+F1+" F2="+F2);
 		if(F1!=1){
 			//Espansione
 			System.out.println("Espansione: calcolo in corso");

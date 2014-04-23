@@ -2,13 +2,6 @@ package it.sp4te.signalprocessing;
 
 public class SignalUtils {
 	
-	/**
-	 * Calcola il valore della sinc nel punto x.
-	 * Se x=0 allora torna 1
-	 * Nota: sinc(x) = (sin(pi*x))/(pi*x)
-	 * @param x
-	 * @return il valore della sinc per il punto x
-	 */
 	//Metodo ottimizzato per il calcolo della funzione sinc
 	public static double sinc(double n, double band){
 		double res = 0;
