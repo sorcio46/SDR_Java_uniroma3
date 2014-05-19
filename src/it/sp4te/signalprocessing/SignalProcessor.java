@@ -88,10 +88,11 @@ public class SignalProcessor {
 	//Metodo LPF Intelligente che data la banda ne calcola il numero dei campioni
 	public static Signal lowPassFilter(double band) {
 		
-		double temp=(2 * band * 10);
+		//Calcolo i campioni per prendere 9 lobi della Sinc
+		double temp=(1/2*band)*10;
+		temp++;
 		int numCampioni=(int)temp;
-		if(numCampioni%2==0)
-			numCampioni++;
+				
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
@@ -103,6 +104,25 @@ public class SignalProcessor {
 		Signal lpf = new Signal(values);
 		
 		return lpf;
+	}
+	
+	//Metodo BPF base
+	public static Signal BandPassFilter(double band, double f1, double f2){
+		double temp=(1/2*band)*10;
+		temp++;
+		int numCampioni=(int)temp;
+				
+		Complex[] values = new Complex[numCampioni];
+		int simmetria = (numCampioni) / 2;
+		
+		for(int n = - simmetria; n <= simmetria; n++){
+			double realval = band * SignalUtils.sinc(n, band) * 2 * Math.cos(2 * Math.PI * n * ((f1+f2)/2));
+			values[n + simmetria] = new Complex(realval, 0);
+		}
+		
+		Signal bpf = new Signal(values);
+		
+		return bpf;
 	}
 	
 	//Metodo BPF scritto da uno Sfaticato

@@ -59,7 +59,7 @@ public class Diagnostica2 {
 		System.out.println("Dato il segnale:");
 		System.out.println(z.toString());
 		
-		Signal lz = SignalProcessor.LazyBandPassFilter(0.55,2.65);
+		Signal lz = SignalProcessor.BandPassFilter(1.25,8.65,9.85);
 		System.out.println("");
 		Signal f4 = SignalProcessor.convoluzione(z, lz);
 		
@@ -86,8 +86,8 @@ public class Diagnostica2 {
 	}
 	public static void main (String[] args){
 		//Esecuzione Diagnostica per Homework 1
-        //homework1();
+        homework1();
         //Esecuzione Diagnostica per Homework 2
-        homework2();
+        //homework2();
 	}
 }
