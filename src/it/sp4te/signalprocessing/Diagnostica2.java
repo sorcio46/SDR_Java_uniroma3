@@ -84,10 +84,15 @@ public class Diagnostica2 {
 		System.out.println("Con tasso di campionamento portato da Tc=3 a Tc=5");
 		System.out.println(cambio2.toString());
 	}
+	public static void homework3(){
+		//Roba per il terzo Homework;
+	}
 	public static void main (String[] args){
 		//Esecuzione Diagnostica per Homework 1
-        homework1();
+        //homework1();
         //Esecuzione Diagnostica per Homework 2
         //homework2();
+		//Esecuzione Diagnostica per Homework 3
+        homework3();
 	}
 }
