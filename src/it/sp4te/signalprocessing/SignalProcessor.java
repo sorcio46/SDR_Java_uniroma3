@@ -260,7 +260,21 @@ public class SignalProcessor {
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per il primo blocco del DDC: il selettore di canale
 	public static Signal selettoreCanale(Signal signalIn, double deltaF){
-		Signal signalOUT=signalIn;
+		int n;
+		double temp;
+		Signal signalOUT;
+		Complex[] valori=signalIn.values;
+		for(n=0;n<valori.length;n++){
+			//Converto il numero complesso in coordinate polari
+			valori[n].conversioneCP();
+			//Calcolo l'esponente per l'eponenziale e^(i*fase)
+			temp=Math.PI * 2 * deltaF *n;
+			//Moltiplico l'esponente per la fase
+			//Considero la rappresentazione secondo la formula di Eulero
+			//Dove modulo*e^(i*fase)
+			valori[n].setFase(valori[n].getFase()*temp);
+		}
+		signalOUT=new Signal(valori);
 		return signalOUT;
 	}
 	

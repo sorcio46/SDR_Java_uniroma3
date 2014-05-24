@@ -126,6 +126,7 @@ public class Complex {
 	}
 	
 	//Operazione CONVERSIONE-CP
+	//Utile per considerare la forma in eponenziale complesso?
 	public void conversioneCP(){
 		if(this.reale>0)
 			this.fase=Math.atan(this.immaginaria/this.reale);
