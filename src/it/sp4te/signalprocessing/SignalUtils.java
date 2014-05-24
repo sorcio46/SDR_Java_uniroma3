@@ -1,5 +1,8 @@
 package it.sp4te.signalprocessing;
 
+import it.sp4te.controllerio.*;
+import it.sp4te.domain.*;
+
 public class SignalUtils {
 	
 	//Metodo ottimizzato per il calcolo della funzione sinc
@@ -34,5 +37,18 @@ public class SignalUtils {
 		f1=T1/mcd;
 		int[] db = {f1,f2};
 		return db;
+	}
+	
+	//Metodo da fare per l'Homework 3
+	//Metodo per la lettura dei campioni da file
+	public static Signal leggiCampioni(String pathIn){
+		Signal signalOUT=new Signal();
+		return signalOUT;
+	}
+	
+	//Metodo da fare per l'Homework 3
+	//Metodo della scrittura dei campioni su file
+	public static void scriviCampioni(String pathIn, double[] values){
+		
 	}
 }

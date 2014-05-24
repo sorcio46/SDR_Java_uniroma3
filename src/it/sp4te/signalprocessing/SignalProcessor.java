@@ -256,4 +256,26 @@ public class SignalProcessor {
 		return signalOUT;
 		
 	}
+	
+	//Metodo da Implementare per l'Homework 3
+	//Metodo per il primo blocco del DDC: il selettore di canale
+	public static Signal selettoreCanale(Signal signalIn, double deltaF){
+		Signal signalOUT=signalIn;
+		return signalOUT;
+	}
+	
+	//Metodo da Implementare per l'Homework 3
+	//Metodo per l'implemetazione del Digital Down Converter
+	public static Signal DDC(Signal signalIn, double deltaF){
+		Signal signalOUT=signalIn;
+		return signalOUT;
+	}
+	
+	//Metodo da Implementare per l'Homework 3
+	//Metodo per l'implemetazione del Demodulatore
+	public static Signal demodulator(Signal signalIn, double deltaF){
+		Signal signalOUT=signalIn;
+		return signalOUT;
+	}
+
 }
