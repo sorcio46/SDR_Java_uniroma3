@@ -1,7 +1,7 @@
 /**
  * Classe che modella i numeri Complessi e definisce le operazioni fondamentali come somma, 
  * prodotto, differenza, ecc.
- * @author Antonio
+ * @author Antonio, Davide Brutti
  *
  */
 package it.sp4te.domain;
@@ -27,6 +27,10 @@ public class Complex {
 	public void setReale(double reale) {
 		this.reale = reale;
 	}
+	
+	public void setReale(String s) {
+		this.reale = Double.parseDouble(s);
+	}
 
 	public double getImmaginaria() {
 		return this.immaginaria;
@@ -34,6 +38,10 @@ public class Complex {
 
 	public void setImmaginaria(double immaginaria) {
 		this.immaginaria = immaginaria;
+	}
+	
+	public void setImmaginaria(String s) {
+		this.immaginaria = Double.parseDouble(s);
 	}
 
 	public double getFase() {
@@ -143,6 +151,7 @@ public class Complex {
 		b.setFase(b.getFase()*n);
 		return b;
 	}
+	
 	@Override
 	public int hashCode() {
 		return (int) (this.reale + this.immaginaria);

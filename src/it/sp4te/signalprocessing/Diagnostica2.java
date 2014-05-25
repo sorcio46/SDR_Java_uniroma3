@@ -1,5 +1,7 @@
 package it.sp4te.signalprocessing;
 
+import java.io.IOException;
+import it.sp4te.controllerio.ControllerIO;
 import it.sp4te.domain.*;
 import it.sp4te.signalprocessing.SignalProcessor;
 
@@ -84,14 +86,16 @@ public class Diagnostica2 {
 		System.out.println("Con tasso di campionamento portato da Tc=3 a Tc=5");
 		System.out.println(cambio2.toString());
 	}
-	public static void homework3(){
+	public static void homework3() throws IOException{
 		//Roba per il terzo Homework;
-		Complex c;
-		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(3,0)};
-		c=vet2[vet2.length-1];
-		System.out.print(c.toString());
+		//String filePath = new File("").getAbsolutePath();
+		//filePath.concat("C:\\Users\\Davide\\Downloads\\CBB_FM\\CBB_FM_ridotto.txt");
+		//String filePath=System.getProperty("user.dir")+"\\CBB_FM_ridotto.txt";
+		Signal z = ControllerIO.leggi("C:/Users/Davide/Downloads/CBB_FM/CBB_FM_ridotto.txt");
+		System.out.println("Stampo quello che ho letto da file");
+		System.out.println(z.toString());
 	}
-	public static void main (String[] args){
+	public static void main (String[] args) throws IOException{
 		//Esecuzione Diagnostica per Homework 1
         //homework1();
         //Esecuzione Diagnostica per Homework 2

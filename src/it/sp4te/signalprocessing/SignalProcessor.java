@@ -2,8 +2,8 @@
  * Classe statica che definisce le operazioni fondamentali da compiere sui segnali discreti come 
  * le operazioni di convoluzione e filtraggio
  * 
- * Nota: la convoluzione � un operazione sovraccarica, invocarla opportunamente
- * @author Antonio Tedeschi
+ * Nota: la convoluzione e' un operazione sovraccarica, invocarla opportunamente
+ * @author Antonio Tedeschi, Davide Brutti
  *
  */
 package it.sp4te.signalprocessing;
@@ -20,6 +20,7 @@ public class SignalProcessor {
 	 * della traslazione temporale in maniera dinamica in modo da saltare i casi in cui l�indice 
 	 * j sia maggiore delle dimensione delle sequenze
 	 */
+	
 	public static double[] convoluzione(double[] v1, double[] v2){	
 		//definizione della lunghezza del vettore finale contenente i risultati della convoluzione
 		int finalLength = v1.length + v2.length-1;
@@ -136,6 +137,7 @@ public class SignalProcessor {
 		}
 		return l;
 	}
+	
 	/**
 	 * Operazione di convoluzione fra segnali:
 	 * implementa un'operazione di convoluzione discreta fra due segnali passati come parametro.

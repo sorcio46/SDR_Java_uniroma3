@@ -1,10 +1,12 @@
 /**
  * Classe che modella i segnali nel discreto
- * @author Antonio Tedeschi
+ * @author Antonio Tedeschi, Davide Brutti
  *
  */
 
 package it.sp4te.domain;
+
+import java.util.List;
 
 public class Signal {
 	
@@ -14,6 +16,32 @@ public class Signal {
 		this.values = values;
 	}
 
+	//Metodo per generare un segnale a partire da una lista di Double
+	public Signal(List<Double> values){
+		//Inizializzo le variabili
+		int campioni=values.size(), i=0, j=0;
+		Complex c;
+		Double re=0.0, im=0.0;
+		campioni=campioni/2;
+		Complex[] vettoreCampioni= new Complex[campioni];
+		//Creo il numero complesso dalla lista in runtime
+		for(Double v:values){
+			if(i%2==0){
+				re=v;
+				i++;
+			}
+			else{
+				im=v;
+				i++;
+				c=new Complex(re,im);
+				//Aggiungo il numero complesso al vettore dei campioni
+				vettoreCampioni[j]=c;
+				j++;
+			}
+		}
+		this.values = vettoreCampioni;
+	}
+	
 	public Signal(){
 		
 	}
