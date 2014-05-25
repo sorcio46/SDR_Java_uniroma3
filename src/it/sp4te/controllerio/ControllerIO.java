@@ -17,17 +17,14 @@ public class ControllerIO {
 	//Metodo per la lettura di un Segnale da file a partire dal percorso del file
 	public static Signal leggi(String pathIn, int limiteCampioni) throws IOException {
         Scanner s = null;
-        Double val;
+        double val;
         List<Double> campioni=new ArrayList<Double>();
         int heapSizeLimiter = 0;
         //Genero dal file una lista di Stringhe
         try {
-        	System.out.println("OK1");
         	FileReader fileReader= new FileReader(pathIn);
-        	System.out.println("OK2");
             s = new Scanner(new BufferedReader(fileReader));
-            System.out.println("OK3");
-            limiteCampioni=limiteCampioni/2;
+            limiteCampioni=limiteCampioni*2;
             while(s.hasNextLine() && heapSizeLimiter<limiteCampioni){
             	val=Double.parseDouble(s.next());
             	campioni.add(val);
@@ -47,13 +44,21 @@ public class ControllerIO {
 	
 	//Metodo per la scrittura su file
 	public static void scrivi(String pathOut, double[] values) throws IOException {
-		BufferedWriter b = null;
 		int i=0;
 		String s;
         try{
+        	//Creo il file
         	File file=new File(pathOut);
-        	FileWriter fileWriter= new FileWriter(file);
-        	b=new BufferedWriter(fileWriter);
+        	//Controllo se esiste, nel caso ci sia lo cancella e lo ricrea
+			if (!file.exists())
+				file.createNewFile();
+			else{
+				file.delete();
+				file=new File(pathOut);
+			}
+			//Inizializzo il FileWriter e il BufferedWriter
+			FileWriter fileWriter= new FileWriter(file.getAbsolutePath());
+        	BufferedWriter b=new BufferedWriter(fileWriter);
         	for(double val:values){
         		s=String.valueOf(val);
         		if(i%2==0){
@@ -67,10 +72,12 @@ public class ControllerIO {
         			i++;
         		}
         	}
-        	
-        }
-        catch(Exception e){
         	b.close();
+        	System.out.println("Segnale salvato con successo sul file:");
+        	System.out.println(file.getAbsolutePath());
         }
+        catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }

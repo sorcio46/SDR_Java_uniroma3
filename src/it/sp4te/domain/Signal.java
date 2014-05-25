@@ -21,11 +21,11 @@ public class Signal {
 		//Inizializzo le variabili
 		int campioni=values.size(), i=0, j=0;
 		Complex c;
-		Double re=0.0, im=0.0;
+		double re=0.0, im=0.0;
 		campioni=campioni/2;
 		Complex[] vettoreCampioni= new Complex[campioni];
 		//Creo il numero complesso dalla lista in runtime
-		for(Double v:values){
+		for(double v:values){
 			if(i%2==0){
 				re=v;
 				i++;
