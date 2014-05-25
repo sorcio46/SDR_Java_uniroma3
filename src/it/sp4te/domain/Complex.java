@@ -17,7 +17,7 @@ public class Complex {
 		this.reale = reale;
 		this.immaginaria = immaginario;
 	}
-
+	
 	/**** GETTER & SETTER ****/
 	
 	public double getReale() {
@@ -91,8 +91,9 @@ public class Complex {
 	}
 	
 	//Operazione COMPLESSO CONIUGATO
-	public void coniugato(){
-		this.immaginaria=-this.immaginaria;
+	public Complex coniugato(){
+		Complex c=new Complex(this.reale,-this.immaginaria);
+		return c;
 	}
 	
 	//Operazione SOMMA

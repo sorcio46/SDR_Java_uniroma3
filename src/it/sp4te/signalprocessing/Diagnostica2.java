@@ -1,6 +1,7 @@
 package it.sp4te.signalprocessing;
 
 import java.io.IOException;
+
 import it.sp4te.domain.*;
 import it.sp4te.signalprocessing.SignalProcessor;
 
@@ -85,11 +86,27 @@ public class Diagnostica2 {
 		System.out.println("Con tasso di campionamento portato da Tc=3 a Tc=5");
 		System.out.println(cambio2.toString());
 	}
-	public static void homework3() throws IOException{
-		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",50);
+	public static void homework3() throws IOException{	
+		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",5000);
 		System.out.println("Stampo quello che ho letto da file");
 		System.out.println("	Dimensione del vettore dei campioni letto da file: "+z.getLength());
 		System.out.println(z.toString());
+		Signal f=SignalProcessor.DDC(z, 200000, 100000, 10);
+		f=SignalProcessor.demodulatore(f, 200000);
+		System.out.println(f.toString()); 
+
+		/*
+		Complex[] vet2 = {new Complex(1,-1), new Complex(2,-1), new Complex(1,0), new Complex(3,0)};
+		Signal t=new Signal(vet2);
+		t=SignalProcessor.demodulatore(t, 200);
+		for(Complex c:t.values){
+			System.out.print(c.getReale()+"  ");
+			System.out.print(c.getImmaginaria()+"  ");
+			System.out.print(c.getFase());
+			System.out.print("\n");
+		}
+		*/
+		
 		/*
 		int i=0;
 		Complex[] vet2 = {new Complex(1,-1), new Complex(2,-1), new Complex(1,0), new Complex(3,0)};
