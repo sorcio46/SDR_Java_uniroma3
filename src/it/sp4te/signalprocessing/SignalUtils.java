@@ -28,7 +28,7 @@ public class SignalUtils {
 		return mcd;
 	}
 	
-	//Metodo da fare per l'Homework 2
+	//Metodo da Implementare per l'Homework 2
 	//Metodo per il calcolo dei parametri per il cambio del tasso di campionamento
 	public static int[] calcoloParametriCambio(int T1, int T2){
 		int f1, f2, mcd;
@@ -39,14 +39,14 @@ public class SignalUtils {
 		return db;
 	}
 	
-	//Metodo da fare per l'Homework 3
+	//Metodo da Implementare per l'Homework 3
 	//Metodo per la lettura dei campioni da file
 	public static Signal leggiCampioni(String pathIn){
 		Signal signalOUT=new Signal();
 		return signalOUT;
 	}
 	
-	//Metodo da fare per l'Homework 3
+	//Metodo da Implementare per l'Homework 3
 	//Metodo della scrittura dei campioni su file
 	public static void scriviCampioni(String pathIn, double[] values){
 		

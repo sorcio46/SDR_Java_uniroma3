@@ -86,6 +86,10 @@ public class Diagnostica2 {
 	}
 	public static void homework3(){
 		//Roba per il terzo Homework;
+		Complex c;
+		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(3,0)};
+		c=vet2[vet2.length-1];
+		System.out.print(c.toString());
 	}
 	public static void main (String[] args){
 		//Esecuzione Diagnostica per Homework 1

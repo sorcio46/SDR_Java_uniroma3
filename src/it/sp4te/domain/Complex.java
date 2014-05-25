@@ -83,8 +83,8 @@ public class Complex {
 	}
 	
 	//Operazione COMPLESSO CONIUGATO
-	public Complex coniugato(){
-		return new Complex(this.reale, - this.immaginaria);
+	public void coniugato(){
+		this.immaginaria=-this.immaginaria;
 	}
 	
 	//Operazione SOMMA

@@ -294,8 +294,30 @@ public class SignalProcessor {
 	
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per l'implemetazione del Demodulatore
+	//Useremo il derivatore numerico per implementarlo
 	public static Signal demodulatore(Signal signalIn, double deltaF){
-		Signal signalOUT=signalIn;
+		Signal signalOUT=new Signal();
+		int i,j=0;
+		Complex temp=new Complex(0,0);
+		Complex[] valori=new Complex[signalIn.values.length];
+		//Faccio lo shift dei dati
+		valori[0]=signalIn.values[signalIn.values.length-1];
+		for(i=1;i<signalIn.values.length;i++){
+			valori[i]=signalIn.values[j];
+			j++;
+		}
+		//Faccio il rapporto incrementale
+		for(i=0;i<signalIn.values.length;i++){
+			valori[i].coniugato();
+			temp.setReale(signalIn.values[i].getReale() * valori[i].getReale());
+			temp.setImmaginaria(signalIn.values[i].getImmaginaria() * valori[i].getImmaginaria());
+			signalOUT.values[i]=temp;
+		}
+		//Faccio il calcolo delle frequenze
+		for(i=0;i<signalOUT.values.length;i++){
+			temp=signalOUT.values[i];
+			signalOUT.values[i].setFase(Math.atan(temp.getImmaginaria()/temp.getReale()));
+		}
 		return signalOUT;
 	}
 
