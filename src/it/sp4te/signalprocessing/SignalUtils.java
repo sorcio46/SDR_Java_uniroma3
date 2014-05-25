@@ -1,5 +1,7 @@
 package it.sp4te.signalprocessing;
 
+import java.io.IOException;
+
 import it.sp4te.controllerio.*;
 import it.sp4te.domain.*;
 
@@ -41,14 +43,15 @@ public class SignalUtils {
 	
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per la lettura dei campioni da file
-	public static Signal leggiCampioni(String pathIn){
-		Signal signalOUT=new Signal();
-		return signalOUT;
+	public static Signal leggiCampioni(String pathIn) throws IOException{
+		Signal letto=new Signal();
+		letto=ControllerIO.leggi(pathIn);
+		return letto;
 	}
 	
 	//Metodo da Implementare per l'Homework 3
 	//Metodo della scrittura dei campioni su file
-	public static void scriviCampioni(String pathIn, double[] values){
-		
+	public static void scriviCampioni(String pathOut, double[] values) throws IOException{
+		ControllerIO.scrivi(pathOut, values);
 	}
 }
