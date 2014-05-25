@@ -280,14 +280,21 @@ public class SignalProcessor {
 	
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per l'implemetazione del Digital Down Converter
-	public static Signal DDC(Signal signalIn, double deltaF){
-		Signal signalOUT=signalIn;
+	public static Signal DDC(Signal signalIn, double deltaF, double bandLPF, int F2){
+		Signal signalOUT;
+		//Applico il selettore di canale al segnale
+		signalOUT=selettoreCanale(signalIn,deltaF);
+		//Genero il filtro passa basso
+		Signal filter=lowPassFilter(bandLPF);
+		//Applico il filtro passa basso
+		signalOUT=convoluzione(signalOUT,filter);
+		signalOUT=decimazione(F2,signalOUT);
 		return signalOUT;
 	}
 	
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per l'implemetazione del Demodulatore
-	public static Signal demodulator(Signal signalIn, double deltaF){
+	public static Signal demodulatore(Signal signalIn, double deltaF){
 		Signal signalOUT=signalIn;
 		return signalOUT;
 	}
