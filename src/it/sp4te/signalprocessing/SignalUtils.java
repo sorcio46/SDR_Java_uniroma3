@@ -43,9 +43,9 @@ public class SignalUtils {
 	
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per la lettura dei campioni da file
-	public static Signal leggiCampioni(String pathIn) throws IOException{
+	public static Signal leggiCampioni(String pathIn, int limiteCampioni) throws IOException{
 		Signal letto=new Signal();
-		letto=ControllerIO.leggi(pathIn);
+		letto=ControllerIO.leggi(pathIn,limiteCampioni);
 		return letto;
 	}
 	

@@ -1,7 +1,6 @@
 package it.sp4te.signalprocessing;
 
 import java.io.IOException;
-import it.sp4te.controllerio.ControllerIO;
 import it.sp4te.domain.*;
 import it.sp4te.signalprocessing.SignalProcessor;
 
@@ -87,11 +86,8 @@ public class Diagnostica2 {
 		System.out.println(cambio2.toString());
 	}
 	public static void homework3() throws IOException{
-		//Roba per il terzo Homework;
-		//String filePath = new File("").getAbsolutePath();
-		//filePath.concat("C:\\Users\\Davide\\Downloads\\CBB_FM\\CBB_FM_ridotto.txt");
-		//String filePath=System.getProperty("user.dir")+"\\CBB_FM_ridotto.txt";
-		Signal z = ControllerIO.leggi("C:/Users/Davide/Downloads/CBB_FM/CBB_FM_ridotto.txt");
+		//Signal z = ControllerIO.leggi("C:/Users/Davide/Downloads/CBB_FM/CBB_FM_ridotto.txt");
+		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",5000);
 		System.out.println("Stampo quello che ho letto da file");
 		System.out.println(z.toString());
 	}
