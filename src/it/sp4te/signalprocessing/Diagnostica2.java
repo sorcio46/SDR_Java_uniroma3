@@ -87,14 +87,15 @@ public class Diagnostica2 {
 		System.out.println(cambio2.toString());
 	}
 	public static void homework3() throws IOException{	
-		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",5000);
+		Signal z = SignalUtils.leggiCampioni("/home/davide/Scaricati/FileSDR/CBB_FM.txt",5000000);
 		System.out.println("Stampo quello che ho letto da file");
 		System.out.println("	Dimensione del vettore dei campioni letto da file: "+z.getLength());
-		System.out.println(z.toString());
-		Signal f=SignalProcessor.DDC(z, 200000, 100000, 10);
-		f=SignalProcessor.demodulatore(f, 200000);
-		System.out.println(f.toString()); 
-
+		//System.out.println(z.toString());
+		Signal f=SignalProcessor.DDC(z, 0.2, 103000, 5);
+		f=SignalProcessor.demodulatore(f, 0.2);
+		//System.out.println(f.toString()); 
+		SignalUtils.scriviFasi("/home/davide/Scaricati/FileSDR/Segnale-Output.txt", f);
+		
 		/*
 		Complex[] vet2 = {new Complex(1,-1), new Complex(2,-1), new Complex(1,0), new Complex(3,0)};
 		Signal t=new Signal(vet2);

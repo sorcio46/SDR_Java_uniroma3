@@ -51,7 +51,26 @@ public class SignalUtils {
 	
 	//Metodo da Implementare per l'Homework 3
 	//Metodo della scrittura dei campioni su file
-	public static void scriviCampioni(String pathOut, double[] values) throws IOException{
+	public static void scriviCampioni(String pathOut, Signal s) throws IOException{
+		double[] values=new double[s.values.length*2];
+		int i=0;
+		for(Complex c: s.values){
+			values[i]=c.getReale();
+			i++;
+			values[i]=c.getImmaginaria();
+			i++;
+		}
 		ControllerIO.scrivi(pathOut, values);
+	}
+	
+	//Metodo per la scrittura delle fasi di un campione su File
+	public static void scriviFasi(String pathOut, Signal s) throws IOException{
+		double[] values=new double[s.values.length*2];
+		int i=0;
+		for(Complex c: s.values){
+			values[i]=c.getFase();
+			i++;
+		}
+		ControllerIO.scriviFasi(pathOut, values);
 	}
 }
