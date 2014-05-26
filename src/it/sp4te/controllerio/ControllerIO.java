@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
 import it.sp4te.domain.Signal;
 
 public class ControllerIO {
@@ -82,6 +81,7 @@ public class ControllerIO {
 	
 	//Metodo per la scrittura su file delle fasi di un segnale
 	public static void scriviFasi(String pathOut, double[] values) throws IOException {
+		@SuppressWarnings("unused")
 		int i=0;
 		String s;
         try{

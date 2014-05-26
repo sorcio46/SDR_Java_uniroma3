@@ -144,6 +144,11 @@ public class Complex {
 		this.modulo=Math.sqrt(Math.pow(this.reale,2) + Math.pow(this.immaginaria,2));
 	}
 	
+	//Converte il numero complesso in esponenziale (?)
+	public Complex exp(){
+		return new Complex(Math.pow(Math.E, this.reale)*Math.cos(this.immaginaria), Math.pow(Math.E, this.reale)*Math.sin(this.immaginaria));
+	}
+	
 	//Operazione POTENZA
 	public Complex potenza(Complex b,int n){
 		if(b.getModulo()!=b.abs())

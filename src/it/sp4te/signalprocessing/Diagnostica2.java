@@ -1,12 +1,14 @@
 package it.sp4te.signalprocessing;
 
 import java.io.IOException;
-
 import it.sp4te.domain.*;
 import it.sp4te.signalprocessing.SignalProcessor;
 
 public class Diagnostica2 {
+	
 	public static void homework1(){
+		
+		System.out.println("Avvio Diagnostica Homework 1");
 		Complex[] vet1 = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
 		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(3,0)};
 			
@@ -72,7 +74,10 @@ public class Diagnostica2 {
 		System.out.println(f4.toString());
 		
 	}
+	
 	public static void homework2(){
+		
+		System.out.println("Avvio Diagnostica Homework 2");
 		Complex[] vet2 = {new Complex(1,0), new Complex(2,0), new Complex(1,0), new Complex(3,0)};
 		Complex[] vet1 = {new Complex(1,0), new Complex(2,0), new Complex(3,0)};
 		Signal z = new Signal(vet2);
@@ -85,42 +90,25 @@ public class Diagnostica2 {
 		System.out.println(cambio.toString());
 		System.out.println("Con tasso di campionamento portato da Tc=3 a Tc=5");
 		System.out.println(cambio2.toString());
+		
 	}
+	
 	public static void homework3() throws IOException{	
-		Signal z = SignalUtils.leggiCampioni("/home/davide/Scaricati/FileSDR/CBB_FM.txt",5000000);
-		System.out.println("Stampo quello che ho letto da file");
+		
+		System.out.println("Avvio Diagnostica Homework 3");
+		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",5500000);
 		System.out.println("	Dimensione del vettore dei campioni letto da file: "+z.getLength());
-		//System.out.println(z.toString());
-		Signal f=SignalProcessor.DDC(z, 0.2, 103000, 5);
-		f=SignalProcessor.demodulatore(f, 0.2);
-		//System.out.println(f.toString()); 
-		SignalUtils.scriviFasi("/home/davide/Scaricati/FileSDR/Segnale-Output.txt", f);
+		//Quali valori passare al DDC?
+		//z   : in quanto gli passiamo il segnale z su cui lavorare
+		//0   : Deltaf pari a zero se vogliamo estrarre sulla stazione centrata sulla portante
+		//0.2 : banda del filtro pari a 100KHz * 2
+		//5   : per passare da 20MS/s a 4MS/s
+		Signal f=SignalProcessor.DDC(z, 0, 0.2, 5);
+		f=SignalProcessor.demodulatore(f);
+		SignalUtils.scriviFasi("/C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
 		
-		/*
-		Complex[] vet2 = {new Complex(1,-1), new Complex(2,-1), new Complex(1,0), new Complex(3,0)};
-		Signal t=new Signal(vet2);
-		t=SignalProcessor.demodulatore(t, 200);
-		for(Complex c:t.values){
-			System.out.print(c.getReale()+"  ");
-			System.out.print(c.getImmaginaria()+"  ");
-			System.out.print(c.getFase());
-			System.out.print("\n");
-		}
-		*/
-		
-		/*
-		int i=0;
-		Complex[] vet2 = {new Complex(1,-1), new Complex(2,-1), new Complex(1,0), new Complex(3,0)};
-		double[] vet2D=new double[vet2.length*2];
-		for(Complex c: vet2){
-			vet2D[i]=c.getReale();
-			i++;
-			vet2D[i]=c.getImmaginaria();
-			i++;
-		}
-		SignalUtils.scriviCampioni("C:/Users/Davide/Downloads/CBB_FM/Campioni-Out.txt", vet2D);
-		*/
 	}
+	
 	public static void main (String[] args) throws IOException{
 		//Esecuzione Diagnostica per Homework 1
         //homework1();

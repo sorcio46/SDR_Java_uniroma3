@@ -263,18 +263,27 @@ public class SignalProcessor {
 	//Metodo per il primo blocco del DDC: il selettore di canale
 	public static Signal selettoreCanale(Signal signalIn, double deltaF){
 		int n;
-		double temp;
+		//double temp;
 		Signal signalOUT;
 		Complex[] valori=signalIn.values;
-		for(n=0;n<valori.length;n++){
-			//Converto il numero complesso in coordinate polari
-			valori[n].conversioneCP();
-			//Calcolo l'esponente per l'eponenziale e^(i*fase)
-			temp=Math.PI * 2 * deltaF *n;
-			//Moltiplico l'esponente per la fase
-			//Considero la rappresentazione secondo la formula di Eulero
-			//Dove modulo*e^(i*fase)
-			valori[n].setFase(valori[n].getFase()*temp);
+		if(deltaF!=0){
+			for(n=0;n<valori.length;n++){
+				Complex c = new Complex(1,Math.PI * 2 * deltaF * n);
+				c.exp();
+				valori[n].exp();
+				valori[n]=valori[n].prodotto(c);
+			
+				/*
+				//Converto il numero complesso in coordinate polari
+				valori[n].conversioneCP();
+				//Calcolo l'esponente per l'eponenziale e^(i*fase)
+				temp=Math.PI * 2 * deltaF *n;
+				//Moltiplico l'esponente per la fase
+				//Considero la rappresentazione secondo la formula di Eulero
+				//Dove modulo*e^(i*fase)
+				valori[n].setFase(valori[n].getFase()*temp);
+				 */
+			}
 		}
 		signalOUT=new Signal(valori);
 		return signalOUT;
@@ -283,6 +292,9 @@ public class SignalProcessor {
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per l'implemetazione del Digital Down Converter
 	public static Signal DDC(Signal signalIn, double deltaF, double bandLPF, int F2){
+		
+		System.out.println("INIZIO DDC");
+		
 		Signal signalOUT;
 		//Applico il selettore di canale al segnale
 		signalOUT=selettoreCanale(signalIn,deltaF);
@@ -290,7 +302,7 @@ public class SignalProcessor {
 		Signal filter=lowPassFilter(bandLPF);
 		//Applico il filtro passa basso
 		signalOUT=convoluzione(signalOUT,filter);
-		//NON BASTA SOLO LA DECIMAZIONE----------------------------------------
+		//BASTA SOLO LA DECIMAZIONE (?)
 		signalOUT=decimazione(F2,signalOUT);
 		return signalOUT;
 	}
@@ -298,7 +310,7 @@ public class SignalProcessor {
 	//Metodo da Implementare per l'Homework 3
 	//Metodo per l'implemetazione del Demodulatore
 	//Useremo il derivatore numerico per implementarlo
-	public static Signal demodulatore(Signal signalIn, double deltaF){
+	public static Signal demodulatore(Signal signalIn){
 		Signal signalOUT=new Signal();
 		int i,j=0;
 		Complex temp;
@@ -306,22 +318,18 @@ public class SignalProcessor {
 		Complex[] valoriRI=new Complex[valori.length];
 		
 		System.out.println("INIZIO demodulatore");
-		for(Complex c:signalIn.values){
-			System.out.println(c);
-		}
-		System.out.println("\n");
 		
-		//Faccio lo shift dei dati --OK
+		//Faccio lo shift dei dati
 		valori[0]=signalIn.values[signalIn.values.length-1];
 		for(i=1;i<signalIn.values.length;i++){
 			valori[i]=signalIn.values[j];
 			j++;
 		}
 		
-		//Faccio il rapporto incrementale ---- QUI
+		//Faccio il rapporto incrementale
 		for(i=0;i<valori.length;i++){	
 			valori[i]=valori[i].coniugato();
-			temp=new Complex(signalIn.values[i].getReale() * valori[i].getReale(),signalIn.values[i].getImmaginaria() * valori[i].getImmaginaria());
+			temp=signalIn.values[i].prodotto(valori[i]);
 			valoriRI[i]=temp;
 		}
 		signalOUT=new Signal(valoriRI);
