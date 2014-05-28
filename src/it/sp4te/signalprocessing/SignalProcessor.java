@@ -268,9 +268,9 @@ public class SignalProcessor {
 		Complex[] valori=signalIn.values;
 		if(deltaF!=0){
 			for(n=0;n<valori.length;n++){
-				Complex c = new Complex(1,Math.PI * 2 * deltaF * n);
+				Complex c = new Complex(0,Math.PI * 2 * deltaF * n);
 				c.exp();
-				valori[n].exp();
+				//valori[n].exp();
 				valori[n]=valori[n].prodotto(c);
 			
 				/*
