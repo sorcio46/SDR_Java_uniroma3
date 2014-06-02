@@ -103,7 +103,7 @@ public class Diagnostica2 {
 		//0   : Deltaf pari a zero se vogliamo estrarre sulla stazione centrata sulla portante
 		//0.2 : banda del filtro pari a 100KHz * 2
 		//5   : per passare da 20MS/s a 4MS/s
-		Signal f=SignalProcessor.DDC(z, 0, 0.2, 5);
+		Signal f=SignalProcessor.DDC(z, 0, 0.055, 5);
 		f=SignalProcessor.demodulatore(f);
 		SignalUtils.scriviFasi("/C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
 		

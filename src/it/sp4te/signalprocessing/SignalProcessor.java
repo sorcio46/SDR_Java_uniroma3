@@ -90,10 +90,13 @@ public class SignalProcessor {
 	public static Signal lowPassFilter(double band) {
 		
 		//Calcolo i campioni per prendere 9 lobi della Sinc
-		double temp=(1/2*band)*10;
+		double s=2*band;
+		double temp=10/s;
 		temp++;
 		int numCampioni=(int)temp;
-				
+		if(numCampioni%2==0)
+			numCampioni--;
+		System.out.println("Numero campioni filtro LPF= "+temp);		
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
@@ -263,26 +266,13 @@ public class SignalProcessor {
 	//Metodo per il primo blocco del DDC: il selettore di canale
 	public static Signal selettoreCanale(Signal signalIn, double deltaF){
 		int n;
-		//double temp;
 		Signal signalOUT;
 		Complex[] valori=signalIn.values;
 		if(deltaF!=0){
 			for(n=0;n<valori.length;n++){
 				Complex c = new Complex(0,Math.PI * 2 * deltaF * n);
 				c.exp();
-				//valori[n].exp();
 				valori[n]=valori[n].prodotto(c);
-			
-				/*
-				//Converto il numero complesso in coordinate polari
-				valori[n].conversioneCP();
-				//Calcolo l'esponente per l'eponenziale e^(i*fase)
-				temp=Math.PI * 2 * deltaF *n;
-				//Moltiplico l'esponente per la fase
-				//Considero la rappresentazione secondo la formula di Eulero
-				//Dove modulo*e^(i*fase)
-				valori[n].setFase(valori[n].getFase()*temp);
-				 */
 			}
 		}
 		signalOUT=new Signal(valori);
