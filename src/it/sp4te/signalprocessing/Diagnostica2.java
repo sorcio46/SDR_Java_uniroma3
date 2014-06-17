@@ -72,7 +72,6 @@ public class Diagnostica2 {
 		System.out.println(lz.toString());
 		System.out.println("Filtrato LAZY");
 		System.out.println(f4.toString());
-		
 	}
 	
 	public static void homework2(){
@@ -90,7 +89,6 @@ public class Diagnostica2 {
 		System.out.println(cambio.toString());
 		System.out.println("Con tasso di campionamento portato da Tc=3 a Tc=5");
 		System.out.println(cambio2.toString());
-		
 	}
 	
 	public static void homework3() throws IOException{	
@@ -106,7 +104,6 @@ public class Diagnostica2 {
 		Signal f=SignalProcessor.DDC(z, 0, 0.055, 5);
 		f=SignalProcessor.demodulatore(f);
 		SignalUtils.scriviFasi("C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
-		
 	}
 	
 	public static void homework4() throws IOException{

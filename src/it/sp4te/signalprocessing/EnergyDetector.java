@@ -69,6 +69,7 @@ public class EnergyDetector {
 				n++;
 			}
 			vettoreEnergie[i]=val;
+			val=0;
 		}
 		//Roba varia da Implementare
 		
