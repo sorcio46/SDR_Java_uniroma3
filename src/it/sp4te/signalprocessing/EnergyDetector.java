@@ -21,7 +21,7 @@ public class EnergyDetector {
 	// Metodo Principale per il calcolo della detection
 	//
 	public void calcolaDetection() throws Exception{
-		
+		System.out.println("Calcolo della detection di un segnale con snr "+this.snr+" e errore 10^("+this.errore+")");
 		//Calcolo il vettore energie del segnale dato in input
 		double[] energie = this.calcolaVettoreEnergia(1000);
 		System.out.println("Lunghezza del vettore energie: "+energie.length);
@@ -29,6 +29,7 @@ public class EnergyDetector {
 
 		//Mi calcolo questa benedetta Soglia
 		calcolaSoglia();
+		System.out.println("");
 		System.out.println("Soglia calcolata: "+this.soglia);
 		
 		int contatoreSoglia=0;
@@ -38,7 +39,8 @@ public class EnergyDetector {
 		}
 		
 		this.detection=contatoreSoglia/energie.length;
-		System.out.println("Probabilità di detection calcolata: "+this.detection);
+		setDetection(this.detection*100);
+		System.out.println("Probabilità di detection calcolata: "+this.detection+"%");
 		
 	}
 	
@@ -61,6 +63,7 @@ public class EnergyDetector {
 			media=media+d;
 		}
 		mediaVettoreEnergia=media/VER.length;
+		System.out.println("mediaVettoreEnergia: "+mediaVettoreEnergia);
 		//Calcolo la varianza del vettore Energia di un Rumore
 		for(double d: VER){
 			temp=d-media;
@@ -80,6 +83,7 @@ public class EnergyDetector {
 	//
 	// Metodo di supporto 
 	// Calcolo il vettore energia del segnale in ingresso
+	//
 	public double[] calcolaVettoreEnergia(int blocchi){
 		
 		double[] vettoreEnergie = new double[blocchi];
@@ -107,33 +111,38 @@ public class EnergyDetector {
 	
 	//
 	// Metodo di supporto 
-	// Calcolo il vettore energia del rumore generato
+	// Calcolo il vettore energie dei rumore generati
+	//
 	public double[] calcolaVettoreEnergiaRumore(int blocchi){
 		
 		double[] vettoreEnergieRumore = new double[blocchi];
-		double[] vettoreSupporto = new double[1000];
-		double val=0;
-		int i=0, j=0, n=0;
+		int i;
 		
 		for(i=0;i<blocchi;i++){
-			//Generazione random di un rumore
-			Noise rumore = new Noise(snr,1000,1);
-			for(Double c : rumore.getParteReale() ){
-				vettoreSupporto[i]=Math.pow(c, 2);
-				i++;
-			}
-			for(j=0;j<1000;j++){
-				val=val+vettoreSupporto[j];
-			}
-			
-			// QUI SOLLEVA UN ECCEZIONE
-			// java.lang.ArrayIndexOutOfBoundsException: 1000
-			vettoreEnergieRumore[n]=val;
-			n++;
-			val=0;
+			vettoreEnergieRumore[i]=calcolaEnergiaRumore();
 		}
 		
 		return vettoreEnergieRumore;
+	}
+	
+	//
+	// Metodo di supporto 
+	// Calcola l'energia di un rumore di 1000 campioni
+	//
+	public double calcolaEnergiaRumore(){
+		
+		//Calcolo la potenza del rumore a partire dall SNR
+		double potenza, SNRlin=Math.pow(10, this.snr/10);
+		potenza=1/SNRlin;
+		
+		Noise rumore = new Noise(this.snr,1000,potenza);
+		double energia=0;
+		
+		for(Double d: rumore.getParteReale()){
+			energia=energia+Math.pow(d, 2);
+		}
+		
+		return energia;
 	}
 	
 	//

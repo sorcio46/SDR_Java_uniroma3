@@ -114,8 +114,9 @@ public class Diagnostica2 {
 		//del quarto HW sono da intendersi scalate di -3dB.
 		//
 		System.out.println("Avvio Diagnostica Homework 4");
-		Signal cinqueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=5dB.txt",1000000);
-		EnergyDetector ED1 = new EnergyDetector(cinqueDB,2,-3);
+		System.out.println("");
+		Signal dueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=5dB.txt",1000000);
+		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3);
 		ED1.calcolaDetection();
 	}
 	
