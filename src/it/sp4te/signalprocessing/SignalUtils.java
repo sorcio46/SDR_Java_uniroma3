@@ -73,4 +73,9 @@ public class SignalUtils {
 		}
 		ControllerIO.scriviFasi(pathOut, values);
 	}
+	
+	//Metodo per la scrittura di un vettore di double su file
+	public static void scriviDouble(String pathOut, double[] s) throws IOException{
+		ControllerIO.scriviFasi(pathOut, s);
+	}
 }

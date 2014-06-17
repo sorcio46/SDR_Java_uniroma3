@@ -105,14 +105,16 @@ public class Diagnostica2 {
 		//5   : per passare da 20MS/s a 4MS/s
 		Signal f=SignalProcessor.DDC(z, 0, 0.055, 5);
 		f=SignalProcessor.demodulatore(f);
-		SignalUtils.scriviFasi("/C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
+		SignalUtils.scriviFasi("C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
 		
 	}
 	
 	public static void homework4() throws IOException{
 		
 		System.out.println("Avvio Diagnostica Homework 4");
-		
+		Signal cinqueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=5dB.txt",1000000);
+		EnergyDetector ED1 = new EnergyDetector(cinqueDB,5,-3);
+		ED1.calcolaDetection();
 	}
 	
 	public static void main (String[] args) throws IOException{
