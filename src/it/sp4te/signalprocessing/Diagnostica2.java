@@ -109,12 +109,20 @@ public class Diagnostica2 {
 		
 	}
 	
+	public static void homework4() throws IOException{
+		
+		System.out.println("Avvio Diagnostica Homework 4");
+		
+	}
+	
 	public static void main (String[] args) throws IOException{
 		//Esecuzione Diagnostica per Homework 1
         //homework1();
         //Esecuzione Diagnostica per Homework 2
         //homework2();
 		//Esecuzione Diagnostica per Homework 3
-        homework3();
+        //homework3();
+		//Esecuzione Diagnostica per Homework 4
+        homework4();
 	}
 }
