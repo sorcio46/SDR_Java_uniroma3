@@ -143,6 +143,78 @@ public class Diagnostica2 {
 		
 	}
 	
+	public static void homework4S2() throws Exception{
+		
+		//
+		//Per un mero errore di copia e incolla, i valori di SNR delle sequenze 
+		//del quarto HW sono da intendersi scalate di -3dB.
+		//
+		System.out.println("Avvio Diagnostica Homework 4");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal dueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=5dB.txt",1000000);
+		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3);
+		ED1.calcolaDetection();
+		
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menotreDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=0dB.txt",1000000);
+		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3);
+		ED2.calcolaDetection();
+		
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menoottoDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=-5dB.txt",1000000);
+		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3);
+		ED3.calcolaDetection();
+		
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menotrediciDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=-10dB.txt",1000000);
+		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3);
+		ED4.calcolaDetection();
+		
+	}
+	
+	public static void homework4S3() throws Exception{
+		
+		//
+		//Per un mero errore di copia e incolla, i valori di SNR delle sequenze 
+		//del quarto HW sono da intendersi scalate di -3dB.
+		//
+		System.out.println("Avvio Diagnostica Homework 4");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal dueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=5dB.txt",1000000);
+		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3);
+		ED1.calcolaDetection();
+		
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menotreDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=0dB.txt",1000000);
+		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3);
+		ED2.calcolaDetection();
+		
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menoottoDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=-5dB.txt",1000000);
+		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3);
+		ED3.calcolaDetection();
+		
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menotrediciDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=-10dB.txt",1000000);
+		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3);
+		ED4.calcolaDetection();
+		
+	}
+	
 	public static void main (String[] args) throws Exception{
 		//Esecuzione Diagnostica per Homework 1
         //homework1();
@@ -152,5 +224,7 @@ public class Diagnostica2 {
         //homework3();
 		//Esecuzione Diagnostica per Homework 4
         homework4S1();
+		homework4S2();
+		homework4S3();
 	}
 }

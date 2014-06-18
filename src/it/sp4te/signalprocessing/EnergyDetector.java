@@ -26,7 +26,15 @@ public class EnergyDetector {
 		System.out.println("Calcolo della detection di un segnale con snr "+this.snr+" e errore 10^("+this.errore+")");
 		//Calcolo il vettore energie del segnale dato in input
 		double[] energie = this.calcolaVettoreEnergia(1000);
+		double mediaEnergiaCampioni=0;
+		
+		for(Double d:energie){
+			mediaEnergiaCampioni = mediaEnergiaCampioni+d;
+		}
+		mediaEnergiaCampioni=mediaEnergiaCampioni/(double)energie.length;
+		
 		System.out.println("Lunghezza del vettore energie: "+energie.length);
+		System.out.println("Media del vettore energie: "+mediaEnergiaCampioni);
 		String s="C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/Energie_Campioni_Raccolti"+this.snr+".txt";
 		SignalUtils.scriviDouble(s, energie);
 
@@ -68,7 +76,7 @@ public class EnergyDetector {
 		}
 		
 		mediaVettoreEnergia=media/(double)VER.length;
-		System.out.println("mediaVettoreEnergia: "+mediaVettoreEnergia);
+		//System.out.println("mediaVettoreEnergia: "+mediaVettoreEnergia);
 		
 		//Calcolo la varianza del vettore Energia di un Rumore
 		for(double d: VER){
@@ -140,8 +148,7 @@ public class EnergyDetector {
 	public double calcolaEnergiaRumore(){
 		
 		//Calcolo la potenza del rumore a partire dall SNR
-		double potenza, SNRlin=Math.pow(10, this.snr/10), temp;
-		potenza=1/SNRlin;
+		double temp;
 		int i;
 		
 		Noise rumore = new Noise(this.snr,1000,1);
