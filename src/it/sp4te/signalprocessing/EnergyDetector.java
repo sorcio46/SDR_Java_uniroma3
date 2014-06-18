@@ -1,5 +1,7 @@
 package it.sp4te.signalprocessing;
 
+import java.io.IOException;
+
 import it.sp4te.domain.Complex;
 import it.sp4te.domain.Signal;
 
@@ -25,9 +27,11 @@ public class EnergyDetector {
 		//Calcolo il vettore energie del segnale dato in input
 		double[] energie = this.calcolaVettoreEnergia(1000);
 		System.out.println("Lunghezza del vettore energie: "+energie.length);
-		SignalUtils.scriviDouble("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/SE.txt", energie);
+		String s="C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/Energie_Campioni_Raccolti"+this.snr+".txt";
+		SignalUtils.scriviDouble(s, energie);
 
 		//Mi calcolo questa benedetta Soglia
+		System.out.println("");
 		calcolaSoglia();
 		System.out.println("");
 		System.out.println("Soglia calcolata: "+this.soglia);
@@ -38,7 +42,7 @@ public class EnergyDetector {
 				contatoreSoglia++;
 		}
 		
-		this.detection=contatoreSoglia/energie.length;
+		this.detection=(double)contatoreSoglia/(double)energie.length;
 		setDetection(this.detection*100);
 		System.out.println("Probabilità di detection calcolata: "+this.detection+"%");
 		
@@ -62,11 +66,13 @@ public class EnergyDetector {
 		for(double d: VER){
 			media=media+d;
 		}
-		mediaVettoreEnergia=media/VER.length;
+		
+		mediaVettoreEnergia=media/(double)VER.length;
 		System.out.println("mediaVettoreEnergia: "+mediaVettoreEnergia);
+		
 		//Calcolo la varianza del vettore Energia di un Rumore
 		for(double d: VER){
-			temp=d-media;
+			temp=d-mediaVettoreEnergia;
 			temp=Math.pow(temp, 2);
 			VVE[i]=temp;
 			i++;
@@ -75,9 +81,9 @@ public class EnergyDetector {
 		for(double d: VVE){
 			media=media+d;
 		}
-		varianzaVettoreEnergia=media/VVE.length;
+		varianzaVettoreEnergia=media/(double)VVE.length;
 		
-		this.soglia=mediaVettoreEnergia + (2*Math.sqrt(varianzaVettoreEnergia)) * SignalUtils.InvErf(falsoAllarme);
+		this.soglia=mediaVettoreEnergia + (2*Math.sqrt(varianzaVettoreEnergia)) * SignalUtils.InvErf(1-2*falsoAllarme);
 	}
 	
 	//
@@ -87,7 +93,7 @@ public class EnergyDetector {
 	public double[] calcolaVettoreEnergia(int blocchi){
 		
 		double[] vettoreEnergie = new double[blocchi];
-		double[] vettorone = new double[1000000];
+		double[] vettorone = new double[this.segnaleIn.values.length];
 		double val=0;
 		int i=0, j=0, n=0;
 		
@@ -104,7 +110,6 @@ public class EnergyDetector {
 			vettoreEnergie[i]=val;
 			val=0;
 		}
-		//Roba varia da Implementare
 		
 		return vettoreEnergie;
 	}
@@ -113,7 +118,7 @@ public class EnergyDetector {
 	// Metodo di supporto 
 	// Calcolo il vettore energie dei rumore generati
 	//
-	public double[] calcolaVettoreEnergiaRumore(int blocchi){
+	public double[] calcolaVettoreEnergiaRumore(int blocchi) throws IOException{
 		
 		double[] vettoreEnergieRumore = new double[blocchi];
 		int i;
@@ -122,12 +127,15 @@ public class EnergyDetector {
 			vettoreEnergieRumore[i]=calcolaEnergiaRumore();
 		}
 		
+		String s = "C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/Energie_Rumore_Generato"+this.snr+".txt";
+		SignalUtils.scriviDouble(s, vettoreEnergieRumore);
+		
 		return vettoreEnergieRumore;
 	}
 	
 	//
 	// Metodo di supporto 
-	// Calcola l'energia di un rumore di 1000 campioni
+	// Calcola l'energia di un rumore generato di 1000 campioni
 	//
 	public double calcolaEnergiaRumore(){
 		
@@ -136,11 +144,12 @@ public class EnergyDetector {
 		potenza=1/SNRlin;
 		int i;
 		
-		Noise rumore = new Noise(this.snr,1000,potenza);
+		Noise rumore = new Noise(this.snr,1000,1);
 		double energia=0;
 		
 		for(i=0;i<rumore.getParteReale().length;i++){
 			temp=Math.sqrt( Math.pow(rumore.getParteReale()[i],2) + Math.pow(rumore.getParteImmaginaria()[i],2));
+			temp=Math.pow(temp, 2);
 			energia=energia+temp;
 		}
 		

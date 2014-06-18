@@ -107,7 +107,7 @@ public class Diagnostica2 {
 		SignalUtils.scriviFasi("C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
 	}
 	
-	public static void homework4() throws Exception{
+	public static void homework4S1() throws Exception{
 		
 		//
 		//Per un mero errore di copia e incolla, i valori di SNR delle sequenze 
@@ -120,14 +120,27 @@ public class Diagnostica2 {
 		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3);
 		ED1.calcolaDetection();
 		
-		/*
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menotreDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=0dB.txt",1000000);
+		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3);
+		ED2.calcolaDetection();
+		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menoottoDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=-5dB.txt",1000000);
-		EnergyDetector ED2 = new EnergyDetector(menoottoDB,-8,-3);
-		ED2.calcolaDetection();
-		*/
+		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3);
+		ED3.calcolaDetection();
+		
+		System.out.println("");
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("");
+		Signal menotrediciDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=-10dB.txt",1000000);
+		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3);
+		ED4.calcolaDetection();
+		
 	}
 	
 	public static void main (String[] args) throws Exception{
@@ -138,6 +151,6 @@ public class Diagnostica2 {
 		//Esecuzione Diagnostica per Homework 3
         //homework3();
 		//Esecuzione Diagnostica per Homework 4
-        homework4();
+        homework4S1();
 	}
 }

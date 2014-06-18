@@ -28,7 +28,6 @@ public class Noise {
 		} 
 	}
 
-	
 	// Metodi Getter e Setter
 	public double getVarianza() {
 		return varianza;
