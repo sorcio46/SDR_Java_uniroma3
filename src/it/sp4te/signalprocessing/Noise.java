@@ -12,7 +12,7 @@ public class Noise {
 	 
 		Random campione = null; 
 		double divisore = Math.pow(10, (snr/10)); 
-		this.varianza = (potenza /divisore); 
+		this.varianza = (potenza / divisore); 
 		this.length = length; 
 		 
 		this.parteReale = new double[length]; 

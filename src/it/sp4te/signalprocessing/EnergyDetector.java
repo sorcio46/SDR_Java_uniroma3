@@ -92,7 +92,7 @@ public class EnergyDetector {
 		int i=0, j=0, n=0;
 		
 		for(Complex c : this.segnaleIn.values){
-			vettorone[i]=Math.pow(c.getReale(), 2);
+			vettorone[i]=Math.pow(c.modulo(), 2);
 			i++;
 		}
 		
@@ -132,14 +132,16 @@ public class EnergyDetector {
 	public double calcolaEnergiaRumore(){
 		
 		//Calcolo la potenza del rumore a partire dall SNR
-		double potenza, SNRlin=Math.pow(10, this.snr/10);
+		double potenza, SNRlin=Math.pow(10, this.snr/10), temp;
 		potenza=1/SNRlin;
+		int i;
 		
 		Noise rumore = new Noise(this.snr,1000,potenza);
 		double energia=0;
 		
-		for(Double d: rumore.getParteReale()){
-			energia=energia+Math.pow(d, 2);
+		for(i=0;i<rumore.getParteReale().length;i++){
+			temp=Math.sqrt( Math.pow(rumore.getParteReale()[i],2) + Math.pow(rumore.getParteImmaginaria()[i],2));
+			energia=energia+temp;
 		}
 		
 		return energia;

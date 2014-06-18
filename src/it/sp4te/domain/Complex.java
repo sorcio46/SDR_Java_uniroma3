@@ -158,6 +158,11 @@ public class Complex {
 		return b;
 	}
 	
+	//Operazione MODULO
+	public double modulo(){
+		return Math.sqrt(Math.pow(this.reale,2) + Math.pow(this.immaginaria,2));
+	}
+	
 	@Override
 	public int hashCode() {
 		return (int) (this.reale + this.immaginaria);
