@@ -1,5 +1,9 @@
 package it.sp4te.signalprocessing;
 
+//
+// Classe utile al solo scopo di simulare un segnale modulato QPSK
+// per analizzare in uno scenario controllato il calcolo della soglia
+//
 public class Segnale{
 	private int length;
 	private double[] reale;

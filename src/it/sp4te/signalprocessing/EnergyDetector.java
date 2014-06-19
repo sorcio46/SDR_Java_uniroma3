@@ -1,7 +1,6 @@
 package it.sp4te.signalprocessing;
 
 import java.io.IOException;
-
 import it.sp4te.domain.Complex;
 import it.sp4te.domain.Signal;
 
@@ -12,19 +11,23 @@ public class EnergyDetector {
 	private int errore;
 	private double soglia;
 	private double detection;
+	private int precisione;
 	
-	public EnergyDetector(Signal s, double snr, int e){
+	public EnergyDetector(Signal s, double snr, int e, int precisione){
 		this.segnaleIn=s;
 		this.snr=snr;
 		this.errore=e;
+		this.precisione=precisione;
 	}
 
 	//
 	// Metodo Principale per il calcolo della detection
 	//
 	public void calcolaDetection() throws Exception{
+
 		System.out.println("Calcolo della detection di un segnale con snr "+this.snr+" e errore 10^("+this.errore+")");
 		//Calcolo il vettore energie del segnale dato in input
+		long start_time = System.nanoTime();
 		double[] energie = this.calcolaVettoreEnergia(1000);
 		double mediaEnergiaCampioni=0;
 		
@@ -35,7 +38,7 @@ public class EnergyDetector {
 		
 		System.out.println("Lunghezza del vettore energie: "+energie.length);
 		System.out.println("Media del vettore energie: "+mediaEnergiaCampioni);
-		String s="C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/Energie_Campioni_Raccolti"+this.snr+".txt";
+		String s="C:/Users/Davide/Downloads/Sequenze_SDR_2014/Output/Energie_Campioni_Raccolti"+this.snr+".txt";
 		SignalUtils.scriviDouble(s, energie);
 
 		//Mi calcolo questa benedetta Soglia
@@ -52,8 +55,10 @@ public class EnergyDetector {
 		
 		this.detection=(double)contatoreSoglia/(double)energie.length;
 		setDetection(this.detection*100);
-		System.out.println("Probabilità di detection calcolata: "+this.detection+"%");
+		long end_time = System.nanoTime();
 		
+		double deltaTempo = (end_time - start_time)/1e6;
+		System.out.println("Probabilità di detection calcolata: "+this.detection+"%"+" in "+deltaTempo+" millisecondi");
 	}
 	
 	//
@@ -66,7 +71,7 @@ public class EnergyDetector {
 		
 		//Dichiaro un sacco di variabili che mi potrebbero servire
 		double varianzaVettoreEnergia, media=0, temp, mediaVettoreEnergia;
-		double[] VER = calcolaVettoreEnergiaRumore(1000);
+		double[] VER = calcolaVettoreEnergiaRumore(this.precisione);
 		double[] VVE = new double[VER.length];
 		int i=0;
 
@@ -91,7 +96,7 @@ public class EnergyDetector {
 		}
 		varianzaVettoreEnergia=media/(double)VVE.length;
 		
-		this.soglia=mediaVettoreEnergia + (2*Math.sqrt(varianzaVettoreEnergia)) * SignalUtils.InvErf(1-2*falsoAllarme);
+		this.soglia=mediaVettoreEnergia + (2*Math.sqrt(varianzaVettoreEnergia)) * SignalUtils.InvErf(1-(2*falsoAllarme));
 	}
 	
 	//
@@ -135,7 +140,7 @@ public class EnergyDetector {
 			vettoreEnergieRumore[i]=calcolaEnergiaRumore();
 		}
 		
-		String s = "C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/Energie_Rumore_Generato"+this.snr+".txt";
+		String s = "C:/Users/Davide/Downloads/Sequenze_SDR_2014/Output/Energie_Rumore_Generato"+this.snr+".txt";
 		SignalUtils.scriviDouble(s, vettoreEnergieRumore);
 		
 		return vettoreEnergieRumore;
@@ -204,6 +209,14 @@ public class EnergyDetector {
 
 	public void setDetection(double detection) {
 		this.detection = detection;
+	}
+
+	public int getPrecisione() {
+		return precisione;
+	}
+
+	public void setPrecisione(int precisione) {
+		this.precisione = precisione;
 	}
 	
 }

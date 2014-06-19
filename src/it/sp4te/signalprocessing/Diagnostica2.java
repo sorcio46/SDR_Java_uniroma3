@@ -117,28 +117,28 @@ public class Diagnostica2 {
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal dueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=5dB.txt",1000000);
-		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3);
+		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3,1000);
 		ED1.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menotreDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=0dB.txt",1000000);
-		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3);
+		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3,1000);
 		ED2.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menoottoDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=-5dB.txt",1000000);
-		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3);
+		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3,1000);
 		ED3.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menotrediciDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_1/output_SNR=-10dB.txt",1000000);
-		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3);
+		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3,1000);
 		ED4.calcolaDetection();
 		
 	}
@@ -153,28 +153,28 @@ public class Diagnostica2 {
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal dueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=5dB.txt",1000000);
-		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3);
+		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3,1000);
 		ED1.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menotreDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=0dB.txt",1000000);
-		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3);
+		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3,1000);
 		ED2.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menoottoDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=-5dB.txt",1000000);
-		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3);
+		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3,1000);
 		ED3.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menotrediciDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_2/output_SNR=-10dB.txt",1000000);
-		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3);
+		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3,1000);
 		ED4.calcolaDetection();
 		
 	}
@@ -189,28 +189,28 @@ public class Diagnostica2 {
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal dueDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=5dB.txt",1000000);
-		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3);
+		EnergyDetector ED1 = new EnergyDetector(dueDB,2,-3,1000);
 		ED1.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menotreDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=0dB.txt",1000000);
-		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3);
+		EnergyDetector ED2 = new EnergyDetector(menotreDB,-3,-3,1000);
 		ED2.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menoottoDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=-5dB.txt",1000000);
-		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3);
+		EnergyDetector ED3 = new EnergyDetector(menoottoDB,-8,-3,1000);
 		ED3.calcolaDetection();
 		
 		System.out.println("");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("");
 		Signal menotrediciDB = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/Sequenze_SDR_2014/Sequenza_3/output_SNR=-10dB.txt",1000000);
-		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3);
+		EnergyDetector ED4 = new EnergyDetector(menotrediciDB,-13,-3,1000);
 		ED4.calcolaDetection();
 		
 	}
