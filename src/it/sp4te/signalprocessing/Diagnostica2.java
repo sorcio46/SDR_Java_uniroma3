@@ -92,7 +92,7 @@ public class Diagnostica2 {
 		System.out.println(cambio2.toString());
 	}
 	
-	public static void homework3() throws IOException{	
+	public static void homework3() throws IOException{
 		
 		//
 		// Appunti:
@@ -108,12 +108,17 @@ public class Diagnostica2 {
 		//0.055 : banda del filtro
 		//5     : per passare da 20MS/s a 4MS/s
 		
-		//MUSICA
-		//Signal f=SignalProcessor.DDC(z, 0.0, 0.053, 5);
+		//MUSICA SULLA PORTANTE
+		Signal f=SignalProcessor.DDC(z, 0.000, 0.053, 5);
 		//RADIOGIORNALE
-		Signal f=SignalProcessor.DDC(z, 0.200, 0.053, 5);
+		//Signal f=SignalProcessor.DDC(z, 0.200, 0.053, 5);
 		//MUSICA
 		//Signal f=SignalProcessor.DDC(z, -0.200, 0.053, 5);
+		//MUSICA DI QUALCHE TIPO (qualità molto scarsa)
+		//Signal f=SignalProcessor.DDC(z, 0.400, 0.053, 5);
+		//SUONO INDISTINGUIBILE
+		//Signal f=SignalProcessor.DDC(z, -0.400, 0.053, 5);
+		
 		f=SignalProcessor.demodulatore(f);
 		SignalUtils.scriviFasi("C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
 	}

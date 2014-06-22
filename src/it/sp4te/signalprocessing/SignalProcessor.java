@@ -113,12 +113,12 @@ public class SignalProcessor {
 		int n;
 		Signal signalOUT;
 		Complex[] valoriIn=signalIn.values;
-			for(n=0;n<valoriIn.length;n++){
-				Complex c = new Complex(0,Math.PI * 2 * deltaF * n);
-				c=c.exp();
-				Complex z=valoriIn[n].prodotto(c);
-				valoriIn[n]=z;
-			}
+		for(n=0;n<valoriIn.length;n++){
+			Complex c = new Complex(0,Math.PI * 2 * deltaF * n);
+			c=c.exp();
+			Complex z=valoriIn[n].prodotto(c);
+			valoriIn[n]=z;
+		}
 		signalOUT=new Signal(valoriIn);
 		return signalOUT;
 	}
@@ -170,7 +170,8 @@ public class SignalProcessor {
 
 		//Faccio il calcolo delle frequenze
 		for(Complex c:signalOUT.values){
-			c.setFase(Math.atan(c.getImmaginaria()/c.getReale()));
+			//c.setFase(Math.atan(c.getImmaginaria()/c.getReale()));
+			c.conversioneCP();
 		}
 		
 		return signalOUT;
