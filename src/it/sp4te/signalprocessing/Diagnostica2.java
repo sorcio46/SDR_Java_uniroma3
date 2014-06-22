@@ -218,13 +218,16 @@ public class Diagnostica2 {
 	public static void main (String[] args) throws Exception{
 		//Esecuzione Diagnostica per Homework 1
         //homework1();
+		
         //Esecuzione Diagnostica per Homework 2
         //homework2();
+		
 		//Esecuzione Diagnostica per Homework 3
-        //homework3();
+        homework3();
+		
 		//Esecuzione Diagnostica per Homework 4
-        homework4S1();
-		homework4S2();
-		homework4S3();
+        //homework4S1();
+		//homework4S2();
+		//homework4S3();
 	}
 }

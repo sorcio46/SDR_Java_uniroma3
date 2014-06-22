@@ -100,32 +100,12 @@ public class SignalProcessor {
 	}
 	
 	//Metodo da Implementare per l'Homework 2
-	//Metoto per la generazione per il filtro Interpolatore
-	public static Signal filtroInterpolatore(double band, int F1){
-		double temp=(2 * F1 * band * 10);
-		int numCampioni=(int)temp;
-		if(numCampioni%2==0)
-			numCampioni++;
-		Complex[] values = new Complex[numCampioni];
-		int simmetria = (numCampioni) / 2;
-		
-		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* F1 * band * SignalUtils.sinc(n, 2 * band);
-			values[n + simmetria] = new Complex(realval, 0);
-		}
-		
-		Signal lpf = new Signal(values);
-		
-		return lpf;
-	}
-	
-	//Metodo da Implementare per l'Homework 2
 	//Metoto per eseguire l'interpolazione
 	public static Signal interpolazione(int F1, Signal signalIN){
 		//Calcolo banda
 		double B=1/(2.0*F1);
 		//Genero il filtro e faccio la convoluzione
-		Signal interpolatore= filtroInterpolatore(B,F1);
+		Signal interpolatore= Filter.filtroInterpolatore(B,F1);
 		Signal interpolato=convoluzione(signalIN, interpolatore);
 		System.out.println(interpolatore.toString());
 		//Taglio le code

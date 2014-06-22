@@ -10,7 +10,7 @@ public class Filter {
 	 * NOTA BENE: il numero di campioni che deve essere passato deve essere dispari
 	 * Ottimizzare il metodo come richiesto nell'homework
 	 */
-	//Metodo LPF
+	// Metodo LPF
 	public static Signal lowPassFilter(double band, int numCampioni) {
 		
 		Complex[] values = new Complex[numCampioni];
@@ -26,17 +26,19 @@ public class Filter {
 		return lpf;
 	}
 	
-	//Metodo LPF Intelligente che data la banda ne calcola il numero dei campioni
+	//
+	// Metodo LPF Intelligente che data la banda ne calcola il numero dei campioni
+	// All'aumentare della Banda, la sinc generata si stringe, quindi mi servono meno campioni
+	//
 	public static Signal lowPassFilter(double band) {
 		
 		//Calcolo i campioni per prendere 9 lobi della Sinc
 		double s=2*band;
 		double temp=10/s;
-		temp++;
 		int numCampioni=(int)temp;
 		if(numCampioni%2==0)
-			numCampioni--;
-		System.out.println("Numero campioni filtro LPF= "+temp);		
+			numCampioni++;
+		//System.out.println("Numero campioni filtro LPF= "+numCampioni);		
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
@@ -79,6 +81,25 @@ public class Filter {
 			l.getValues()[n].setReale(reale);
 		}
 		return l;
+	}
+	
+	//Metoto per la generazione per il filtro Interpolatore
+	public static Signal filtroInterpolatore(double band, int F1){
+		double temp=(2 * F1 * band * 10);
+		int numCampioni=(int)temp;
+		if(numCampioni%2==0)
+			numCampioni++;
+		Complex[] values = new Complex[numCampioni];
+		int simmetria = (numCampioni) / 2;
+		
+		for(int n = - simmetria; n <= simmetria; n++){
+			double realval = 2* F1 * band * SignalUtils.sinc(n, 2 * band);
+			values[n + simmetria] = new Complex(realval, 0);
+		}
+		
+		Signal lpf = new Signal(values);
+		
+		return lpf;
 	}
 	
 }
