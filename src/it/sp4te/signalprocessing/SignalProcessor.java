@@ -112,15 +112,14 @@ public class SignalProcessor {
 	public static Signal selettoreCanale(Signal signalIn, double deltaF){
 		int n;
 		Signal signalOUT;
-		Complex[] valori=signalIn.values;
-		if(deltaF!=0){
-			for(n=0;n<valori.length;n++){
+		Complex[] valoriIn=signalIn.values;
+			for(n=0;n<valoriIn.length;n++){
 				Complex c = new Complex(0,Math.PI * 2 * deltaF * n);
-				c.exp();
-				valori[n]=valori[n].prodotto(c);
+				c=c.exp();
+				Complex z=valoriIn[n].prodotto(c);
+				valoriIn[n]=z;
 			}
-		}
-		signalOUT=new Signal(valori);
+		signalOUT=new Signal(valoriIn);
 		return signalOUT;
 	}
 	

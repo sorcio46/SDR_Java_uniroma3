@@ -94,15 +94,26 @@ public class Diagnostica2 {
 	
 	public static void homework3() throws IOException{	
 		
+		//
+		// Appunti:
+		// Legge di Carson (http://en.wikipedia.org/wiki/Carson_bandwidth_rule)
+		// So most of the energy of standard stereo FM falls in an approximate bandwidth of 2(75+53) = 256 kHz
+		
 		System.out.println("Avvio Diagnostica Homework 3");
 		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",5500000);
 		System.out.println("	Dimensione del vettore dei campioni letto da file: "+z.getLength());
 		//Quali valori passare al DDC?
-		//z   : in quanto gli passiamo il segnale z su cui lavorare
-		//0   : Deltaf pari a zero se vogliamo estrarre sulla stazione centrata sulla portante
-		//0.2 : banda del filtro pari a 100KHz * 2
-		//5   : per passare da 20MS/s a 4MS/s
-		Signal f=SignalProcessor.DDC(z, 0, 0.055, 5);
+		//z     : in quanto gli passiamo il segnale z su cui lavorare
+		//0     : Deltaf pari a zero se vogliamo estrarre sulla stazione centrata sulla portante
+		//0.055 : banda del filtro
+		//5     : per passare da 20MS/s a 4MS/s
+		
+		//MUSICA
+		//Signal f=SignalProcessor.DDC(z, 0.0, 0.053, 5);
+		//RADIOGIORNALE
+		Signal f=SignalProcessor.DDC(z, 0.200, 0.053, 5);
+		//MUSICA
+		//Signal f=SignalProcessor.DDC(z, -0.200, 0.053, 5);
 		f=SignalProcessor.demodulatore(f);
 		SignalUtils.scriviFasi("C:/Users/Davide/Downloads/CBB_FM/Segnale-Output.txt", f);
 	}

@@ -38,7 +38,7 @@ public class Filter {
 		int numCampioni=(int)temp;
 		if(numCampioni%2==0)
 			numCampioni++;
-		//System.out.println("Numero campioni filtro LPF= "+numCampioni);		
+		System.out.println("Numero campioni filtro LPF= "+numCampioni);		
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
