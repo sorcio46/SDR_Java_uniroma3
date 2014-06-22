@@ -33,8 +33,8 @@ public class Diagnostica2 {
 		
 		//Esempio di filtraggio (convoluzione tra un segnale e il filtro passa-basso)
 	    Signal s = new Signal(vet1);
-	    Signal lpf= SignalProcessor.lowPassFilter(0.25, 5);
-		Signal lpe= SignalProcessor.lowPassFilter(0.33);
+	    Signal lpf= Filter.lowPassFilter(0.25, 5);
+		Signal lpe= Filter.lowPassFilter(0.33);
 	    Signal f1 = SignalProcessor.convoluzione(s, lpf);
 		Signal f2 = SignalProcessor.convoluzione(s, lpe);
 		System.out.println("\n-------------");
@@ -64,7 +64,7 @@ public class Diagnostica2 {
 		System.out.println("Dato il segnale:");
 		System.out.println(z.toString());
 		
-		Signal lz = SignalProcessor.BandPassFilter(1.25,8.65,9.85);
+		Signal lz = Filter.BandPassFilter(1.25,8.65,9.85);
 		System.out.println("");
 		Signal f4 = SignalProcessor.convoluzione(z, lz);
 		
