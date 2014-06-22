@@ -21,65 +21,6 @@ public class SignalProcessor {
 	 * j sia maggiore delle dimensione delle sequenze
 	 */
 	
-	public static double[] convoluzione(double[] v1, double[] v2){	
-		//definizione della lunghezza del vettore finale contenente i risultati della convoluzione
-		int finalLength = v1.length + v2.length-1;
-		double[] result = new double[finalLength];
-		
-		//inizializzazione delle variabili temporali
-		int upperBound = 0;
-		int lowerBound = 0;
-		
-		//calcolo della convoluzione
-		for(int k=0; k<finalLength; k++) {
-			upperBound = Math.min(k, v2.length-1);
-			lowerBound = Math.max(0, k - v1.length+1);
-			for(int j=lowerBound; j<=upperBound; j++)
-				result[k] += (v1[k-j]*v2[j]);
-		}
-		return result;
-	}
-	
-	/**
-	 * Convoluzione tra due vettori di numeri complessi
-	 */
-	public static Complex[] convoluzione(Complex[] v1, Complex[] v2){
-		
-		//definizione della lunghezza del vettore finale contenente i risultati della convoluzione
-		int finalLength = v1.length + v2.length-1;
-		Complex[] result = new Complex[finalLength];
-		
-		//inizializzazione delle variabili temporali
-		int upperBound = 0;
-		int lowerBound = 0;
-		
-		//calcolo della convoluzione
-		for(int k=0; k<finalLength; k++) {
-			upperBound = Math.min(k, v2.length-1);
-			lowerBound = Math.max(0, k - v1.length+1);
-			result[k] = new Complex(0,0);
-			for(int j=lowerBound; j<=upperBound; j++)
-				result[k] = result[k].somma(v1[k-j].prodotto(v2[j]));			
-		}
-		return result;
-		
-	}
-	
-	/**
-	 * Operazione di convoluzione fra segnali:
-	 * implementa un'operazione di convoluzione discreta fra due segnali passati come parametro.
-	 * Presuppone che il segnale d'ingresso abbia parte reale e immaginaria non nulle 
-	 * e che il filtro abbia solo parte reale.
-	 */
-	public static Signal convoluzione(Signal segnaleIn, Signal rispImpulsivaFiltro){
-		
-		Complex[] values = convoluzione(segnaleIn.getValues(), rispImpulsivaFiltro.getValues());
-		Signal signal = new Signal(values);
-		
-		return signal;
-		
-	}
-	
 	//Metodo da Implementare per l'Homework 2
 	//Metoto per esegure l'espansione (gli serve F1)
 	public static Signal espansione(int F1, Signal signalIN){
@@ -106,7 +47,7 @@ public class SignalProcessor {
 		double B=1/(2.0*F1);
 		//Genero il filtro e faccio la convoluzione
 		Signal interpolatore= Filter.filtroInterpolatore(B,F1);
-		Signal interpolato=convoluzione(signalIN, interpolatore);
+		Signal interpolato=Convolution.convoluzione(signalIN, interpolatore);
 		System.out.println(interpolatore.toString());
 		//Taglio le code
 		Complex[] val= new Complex [signalIN.values.length];
@@ -195,7 +136,7 @@ public class SignalProcessor {
 		//Genero il filtro passa basso
 		Signal filter=Filter.lowPassFilter(bandLPF);
 		//Applico il filtro passa basso
-		signalOUT=convoluzione(signalOUT,filter);
+		signalOUT=Convolution.convoluzione(signalOUT,filter);
 		//BASTA SOLO LA DECIMAZIONE (?)
 		signalOUT=decimazione(F2,signalOUT);
 		return signalOUT;
