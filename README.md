@@ -1,10 +1,12 @@
 SDR_Homework
 ============
+
 This project aims to implement basic SDR (Software Defined Radio) processing in Java.
 
 Stay with the master branch to get the latest bugfixes and features.
 
 The others branches are for academic purposes.
+
 ===========
 If you want to talk about this project we can get in contact with my email: daddo.brutti@gmail.com (no spam)
 
