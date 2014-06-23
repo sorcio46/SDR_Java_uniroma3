@@ -100,7 +100,7 @@ public class Diagnostica2 {
 		// So most of the energy of standard stereo FM falls in an approximate bandwidth of 2(75+53) = 256 kHz
 		
 		System.out.println("Avvio Diagnostica Homework 3");
-		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",5500000);
+		Signal z = SignalUtils.leggiCampioni("C:/Users/Davide/Downloads/CBB_FM/CBB_FM.txt",8500000);
 		System.out.println("	Dimensione del vettore dei campioni letto da file: "+z.getLength());
 		//Quali valori passare al DDC?
 		//z     : in quanto gli passiamo il segnale z su cui lavorare
@@ -109,9 +109,9 @@ public class Diagnostica2 {
 		//5     : per passare da 20MS/s a 4MS/s
 		
 		//MUSICA SULLA PORTANTE
-		Signal f=SignalProcessor.DDC(z, 0.000, 0.053, 5);
+		//Signal f=SignalProcessor.DDC(z, 0.000, 0.053, 5);
 		//RADIOGIORNALE
-		//Signal f=SignalProcessor.DDC(z, 0.200, 0.053, 5);
+		Signal f=SignalProcessor.DDC(z, 0.200, 0.0265, 5);
 		//MUSICA
 		//Signal f=SignalProcessor.DDC(z, -0.200, 0.053, 5);
 		//MUSICA DI QUALCHE TIPO (qualità molto scarsa)
