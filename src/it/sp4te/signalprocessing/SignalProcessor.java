@@ -1,8 +1,6 @@
 /**
  * Classe statica che definisce le operazioni fondamentali da compiere sui segnali discreti come 
  * le operazioni di convoluzione e filtraggio
- * 
- * Nota: la convoluzione e' un operazione sovraccarica, invocarla opportunamente
  * @author Antonio Tedeschi, Davide Brutti
  *
  */
@@ -11,17 +9,7 @@ package it.sp4te.signalprocessing;
 import it.sp4te.domain.*;
 
 public class SignalProcessor {
-
-	/**
-	 * NB La funzione length degli array restuisce la lunghezza dell'array che non 
-	 * coincide con la numerazione degli indici!
-	 * pertanto per applicare correttamente la formula della convoluzione � necessario prestare un po' 
-	 * di attenzione agli indici con cui andiamo a lavorare per definire l�indice j per il ciclo for 
-	 * della traslazione temporale in maniera dinamica in modo da saltare i casi in cui l�indice 
-	 * j sia maggiore delle dimensione delle sequenze
-	 */
 	
-	//Metodo da Implementare per l'Homework 2
 	//Metoto per esegure l'espansione (gli serve F1)
 	public static Signal espansione(int F1, Signal signalIN){
 		Complex[] sequenzaIN=signalIN.values;
@@ -40,7 +28,6 @@ public class SignalProcessor {
 		return esp;
 	}
 	
-	//Metodo da Implementare per l'Homework 2
 	//Metoto per eseguire l'interpolazione
 	public static Signal interpolazione(int F1, Signal signalIN){
 		//Calcolo banda
@@ -60,7 +47,6 @@ public class SignalProcessor {
 		return interpolato= new Signal(val);
 	}
 	
-	//Metodo da Implementare per l'Homework 2
 	//Metoto per esegure la decimazione (gli serve F1)
 	public static Signal decimazione(int F2, Signal signalIN){
 		Complex[] interpolato=signalIN.values;
@@ -77,7 +63,6 @@ public class SignalProcessor {
 		return deci;
 	}
 	
-	//Metodo da Implementare per l'Homework 2
 	//Metodo per il cambio del tasso di campionamento
 	public static Signal cambioTassoCampionamento(int T1, int T2, Signal signalIN){
 		int F1=SignalUtils.calcoloParametriCambio(T1, T2)[0];
@@ -107,7 +92,6 @@ public class SignalProcessor {
 		
 	}
 	
-	//Metodo da Implementare per l'Homework 3
 	//Metodo per il primo blocco del DDC: il selettore di canale
 	public static Signal selettoreCanale(Signal signalIn, double deltaF){
 		int n;
@@ -123,7 +107,6 @@ public class SignalProcessor {
 		return signalOUT;
 	}
 	
-	//Metodo da Implementare per l'Homework 3
 	//Metodo per l'implemetazione del Digital Down Converter
 	public static Signal DDC(Signal signalIn, double deltaF, double bandLPF, int F2){
 		
@@ -141,7 +124,6 @@ public class SignalProcessor {
 		return signalOUT;
 	}
 	
-	//Metodo da Implementare per l'Homework 3
 	//Metodo per l'implemetazione del Demodulatore
 	//Useremo il derivatore numerico per implementarlo
 	public static Signal demodulatore(Signal signalIn){

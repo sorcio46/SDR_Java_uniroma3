@@ -5,25 +5,31 @@ import it.sp4te.domain.Signal;
 
 public class Filter {
 	
-	/**
-	 * Crea un nuovo segnale rappresentante il filtro passa-basso
-	 * NOTA BENE: il numero di campioni che deve essere passato deve essere dispari
-	 * Ottimizzare il metodo come richiesto nell'homework
-	 */
-	// Metodo LPF
+	//
+	// Metodo Low Pass filter
+	//
 	public static Signal lowPassFilter(double band, int numCampioni) {
 		
-		Complex[] values = new Complex[numCampioni];
-		int simmetria = (numCampioni) / 2;
+		try{
 		
-		for(int n = - simmetria; n <= simmetria; n++){
-			double realval = 2* band * SignalUtils.sinc(n, 2 * band);
-			values[n + simmetria] = new Complex(realval, 0);
+			Complex[] values = new Complex[numCampioni];
+			int simmetria = (numCampioni) / 2;
+		
+			for(int n = - simmetria; n <= simmetria; n++){
+				double realval = 2* band * SignalUtils.sinc(n, 2 * band);
+				values[n + simmetria] = new Complex(realval, 0);
+			}
+		
+			Signal lpf = new Signal(values);
+			return lpf;
 		}
 		
-		Signal lpf = new Signal(values);
-		
-		return lpf;
+		catch(Exception e){
+			Signal s=new Signal();
+			System.out.println(e);
+		    System.out.println("Il numero dei campioni dato al filtro deve essere dispari");
+		    return s;
+		}
 	}
 	
 	//
@@ -52,11 +58,17 @@ public class Filter {
 		return lpf;
 	}
 	
-	//Metodo BPF base
+	//
+	// Metodo Band Pass Filter base
+	//
 	public static Signal BandPassFilter(double band, double f1, double f2){
-		double temp=(1/2*band)*10;
-		temp++;
+		
+		//Calcolo i campioni per prendere 9 lobi della Sinc
+		double s=2*band;
+		double temp=10/s;
 		int numCampioni=(int)temp;
+		if(numCampioni%2==0)
+			numCampioni++;
 				
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
@@ -71,7 +83,9 @@ public class Filter {
 		return bpf;
 	}
 	
-	//Metodo BPF scritto da uno Sfaticato
+	//
+	// Metodo BPF scritto da uno Sfaticato
+	//
 	public static Signal LazyBandPassFilter(double band, double offset){
 		double reale;
 		Signal l=lowPassFilter(band);
@@ -83,12 +97,18 @@ public class Filter {
 		return l;
 	}
 	
-	//Metoto per la generazione per il filtro Interpolatore
+	//
+	// Metodo per la generazione per il filtro Interpolatore
+	//
 	public static Signal filtroInterpolatore(double band, int F1){
-		double temp=(2 * F1 * band * 10);
+		
+		//Calcolo i campioni per prendere 9 lobi della Sinc
+		double s=2*band;
+		double temp=10/s;
 		int numCampioni=(int)temp;
 		if(numCampioni%2==0)
 			numCampioni++;
+		
 		Complex[] values = new Complex[numCampioni];
 		int simmetria = (numCampioni) / 2;
 		
