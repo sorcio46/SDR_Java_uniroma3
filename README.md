@@ -8,7 +8,6 @@ Stay with the master branch to get the latest bugfixes and features.
 The others branches are for academic purposes.
 
 ===========
-If you want to talk about this project we can get in contact with my email: daddo.brutti@gmail.com (no spam)
 
 Git Repository per gli Homework del corso di SDR dell'Università Roma 3
 
